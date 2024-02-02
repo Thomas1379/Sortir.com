@@ -1,3 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Sortir.com{% endblock %}</title>
+</head>
+<body>
+
+    <header>
+        {% include 'inc/nav.html.twig' %}
+        <p>Header</p>
+    </header>
+
+    {% block body %}
+        <p>Body</p>
+    {% endblock %}
+
+    <footer>
+        <p>Footer</p>
+    </footer>
+
+</body>
+</html>
+
+
 <!DOCTYPE html>
 <html>
     <head>
