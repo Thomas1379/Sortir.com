@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <section class="login">
+        <form action="">
+            <div class="input">
+                <div>
+                    <label for="id">Identifiant :</label>
+                    <input type="text" name="id" id="id">
+                </div>
+                <div>
+                    <label for="mdp">Mot de passe :</label>
+                    <input type="text" name="mdp" id="mdp">
+                </div>
+                <div>
+                    <input type="checkbox" name="rememberme" id="rememberme">
+                    <label for="rememberme">Se souvenir de moi</label>
+                </div>
+            </div>
+            <div class="connect">
+                <button>Connexion</button>
+                <div>
+                    <a href="#">Mot de passe oublié</a>
+                    <a href="#">Créer un compte</a>
+                </div>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}

@@ -39,7 +39,7 @@ button, a, input[type='checkbox'] {
     .input {
       display: flex;
       flex-direction: column;
-      div{
+      div {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -84,10 +84,10 @@ button, a, input[type='checkbox'] {
         padding: 10px;
         font-size: $fz2;
         transition: transform 500ms 100ms;
-        transform: rotate(0);
+        transform: scale(1);
         &:hover {
           transition: transform 500ms 100ms;
-          transform: rotate(360deg);
+          transform: scale(1.2);
         }
       }
       div {
