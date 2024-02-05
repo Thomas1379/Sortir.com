@@ -21,9 +21,10 @@ class RegistrationController extends AbstractController
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
+        CampusRepository $campusRepository
     ): Response
     {
-        $campus = new Campus();
+        $campus = $campusRepository->findAll();
 
         $user = new Participant();
         $user->setRoles(["ROLE_PARTICIPANT"]);

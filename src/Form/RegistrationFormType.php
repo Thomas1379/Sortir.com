@@ -6,6 +6,7 @@ use App\Entity\Campus;
 use App\Entity\Participant;
 use App\Repository\CampusRepository;
 use PhpParser\Node\Expr\New_;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -43,28 +44,8 @@ class RegistrationFormType extends AbstractType
             ->add('prenom')
             ->add('telephone')
             ->add('campus',ChoiceType::class, [
-                'choices' => [
-                    'Maybe' => null,
-                    'Yes' => true,
-                    'No' => false,
-                ],
-                // "name" is a property path, meaning Symfony will look for a public
-                // property or a public method like "getName()" to define the input
-                // string value that will be submitted by the form
-                 'choice_value' => 'nom',
-                // a callback to return the label for a given choice
-                // if a placeholder is used, its empty value (null) may be passed but
-                // its label is defined by its own "placeholder" option
-                'choice_label' => function (Participant $campus): Participant {
-                    return $campus;
-                },
-                // returns the html attributes for each option input (may be radio/checkbox)
-                'choice_attr' => function ($campus): array {
-                    return ['salut'];
 
-                },
             ])
-
         ;
     }
 
