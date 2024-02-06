@@ -20,11 +20,9 @@ class RegistrationController extends AbstractController
     public function register(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager,
-        CampusRepository $campusRepository
+        EntityManagerInterface $entityManager
     ): Response
     {
-        $campus = $campusRepository->findAll();
 
         $user = new Participant();
         $user->setActif(1);
@@ -40,11 +38,15 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $user->setPseudo(
+                $user->getPrenom() . ' ' . substr($user->getNom(), 0, 1) . '.'
+            );
+
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_admin_register');
         }
 
         return $this->render('registration/register.html.twig', [
