@@ -16,7 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    #[Route('admin/register', name: 'app_admin_register')]
     public function register(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
         $campus = $campusRepository->findAll();
 
         $user = new Participant();
-        $user->setRoles(["ROLE_PARTICIPANT"]);
+        $user->setActif(1);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
