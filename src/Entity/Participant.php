@@ -82,7 +82,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        dd('salut');
         if ($this->email != null) {
             return (string) $this->email;
         }
