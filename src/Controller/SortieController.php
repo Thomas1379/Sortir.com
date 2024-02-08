@@ -37,21 +37,26 @@ class SortieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $submited = $request->request->get('submit');
             dump($submited);
-
-            //die();
-            if ($submited=="enregistrer"){
-                $etat = $etatRepository->find(4);
-                $sortie->setEtat($etat);
-                dump($sortie);
-                $entityManager->persist($sortie);
-                $entityManager->flush();
+            switch($submited) {
+                case"enregister":
+                    {
+                        $etat = $etatRepository->find(4);
+                        $sortie->setEtat($etat);
+                        dump($sortie);
+                        $entityManager->persist($sortie);
+                        $entityManager->flush();
+                    }
+                    break;
+                case"publier":
+                    {
+                        $etat = $etatRepository->find(1);
+                        $sortie->setEtat($etat);
+                        dump($sortie);
+                        $entityManager->persist($sortie);
+                        $entityManager->flush();
+                    }
+                    break;
             }
-            elseif ($submited=="publier")
-            {
-                $entityManager->persist($sortie);
-                $entityManager->flush();
-            }
-
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 
