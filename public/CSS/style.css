@@ -18,6 +18,10 @@ footer {
   align-items: center;
 }
 
+.ville {
+  display: block;
+}
+
 button, a, input[type=checkbox] {
   cursor: pointer;
 }
