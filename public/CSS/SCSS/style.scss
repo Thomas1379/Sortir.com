@@ -4,78 +4,8 @@ $fz2: 1.5rem;
 $fz3: 1.8rem;
 $fz4: 2rem;
 
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-}
-
-.ville {
-  border: 1px solid #ddd;
-  padding: 20px;
-}
-
-h1, h2 {
-  margin-top: 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 5px;
-}
-
-th {
-  text-align: center;
-}
-
 a {
   text-decoration: none;
-  color: #000;
-}
-
-a:hover {
-  color: #333;
-}
-.ville .actions a {
-  color: #777;
-}
-.ville .actions a {
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.ville .actions a:hover {
-  background-color: #ddd;
-}
-.formulaire {
-  margin-top: 20px;
-}
-
-.formulaire label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.formulaire input {
-  border: 1px solid #ddd;
-  padding: 5px;
-  width: 100%;
-}
-
-.formulaire button {
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.formulaire button:hover {
-  background-color: #ddd;
 }
 
 header {
@@ -102,132 +32,159 @@ img {
   display: block;
   margin: 0 auto;
   border: 1px solid #ddd;
+}
 
+.ville {
+  border: 1px solid #ddd;
+  padding: 20px;
+  .actions {
+    a {
+      color: #777;
+      border: 1px solid #ddd;
+      padding: 5px 10px;
+      border-radius: 5px;
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+}
+
+.formulaire {
+  margin-top: 20px;
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  input {
+    border: 1px solid #ddd;
+    padding: 5px;
+    width: 100%;
+  }
+  button {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    &:hover {
+      background-color: #ddd;
+    }
+  }
 }
 
 .image-container {
   text-align: center;
+  h1 {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    margin: 10px 0;
+    text-align: center;
+  }
+  p {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    text-align: center;
+    margin: 0 10px 10px 10px;
+  }
   img {
     max-width: 100%;
     height: auto;
     display: block;
     margin: 0 auto;
+    border: 5px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  figcaption {
+    font-style: italic;
+    font-size: 0.8em;
+    margin-top: 5px;
   }
 }
 
-.image-container figcaption {
-  font-style: italic;
-  font-size: 0.8em;
-  margin-top: 5px;
-}
-
-.image-container img {
-  border: 5px solid #ddd;
-  border-radius: 10px;
-  max-width: 100%;
-  height: auto;
-  display : block;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.image-container h1 {
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  font-size: 24px;
-  margin: 10px 0;
-  text-align: center;
-}
-
-.image-container p {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  text-align: center;
-  margin: 0 10px 10px 10px;
-}
-
-/*<div class="image-container">
-<img src="votre-image.jpg" alt="Votre image">
-<figcaption>Ceci est votre image.</figcaption>
-</div>*/
-
-
-
-
-.login {
-  background-color: #fff;
-  min-width: 400px;
+.login_Security {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  border: rgba(0, 0, 0, 0.50) solid 1px;
-  border-radius:20px;
-  form {
-    .input {
-      display: flex;
-      flex-direction: column;
-      div {
+  width: 100%;
+  height: 80vh;
+  .login {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    border: rgba(0, 0, 0, 0.50) solid 1px;
+    border-radius:20px;
+    form {
+      .input {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 5px 0;
-        label {
-          margin-right: 30px;
-          font-size: $fz1;
-        }
-        input {
-          font-size: $fz1;
-          border: 1px rgba(255, 255, 255, 0) solid;
-          border-bottom: 1px black solid;
-          transition: border 500ms 100ms;
-          &:focus-visible{
-            outline: 0;
-            border: 1px black solid;
+        flex-direction: column;
+        div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 5px 0;
+          label {
+            margin-right: 30px;
+            font-size: $fz1;
           }
-          &:hover {
-            border: 1px black solid;
+          input {
+            font-size: $fz1;
+            border: 1px rgba(255, 255, 255, 0) solid;
+            border-bottom: 1px black solid;
+            transition: border 500ms 100ms;
+            &:focus-visible{
+              outline: 0;
+              border: 1px black solid;
+            }
+            &:hover {
+              border: 1px black solid;
+            }
+          }
+        }
+        div:last-child {
+          justify-content: center;
+          input {
+            width: 15px;
+            height: 15px;
+          }
+          label {
+            margin-left: 5px;
           }
         }
       }
-      div:last-child {
+      .connect {
+        display: flex;
         justify-content: center;
-        input {
-          width: 15px;
-          height: 15px;
-        }
-        label {
-          margin-left: 5px;
-        }
-      }
-    }
-    .connect {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding-top: 15px;
-      button {
-        width: 50%;
-        padding: 10px;
-        font-size: $fz2;
-        transition: transform 500ms 100ms;
-        transform: scale(1);
-        &:hover {
+        align-items: center;
+        flex-direction: column;
+        padding-top: 15px;
+        button {
+          width: 50%;
+          padding: 10px;
+          font-size: $fz2;
           transition: transform 500ms 100ms;
-          transform: scale(1.2);
+          transform: scale(1);
+          &:hover {
+            transition: transform 500ms 100ms;
+            transform: scale(1.2);
+          }
         }
-      }
-      div {
-        margin-top: 10px;
-        a {
-          margin: 0 10px;
+        div {
+          margin-top: 10px;
+          a {
+            margin: 0 10px;
+          }
         }
       }
     }
   }
 }
 
-.index_sortie {
+.index_Sortie {
   display: flex;
   justify-content: center;
   align-items: center;
