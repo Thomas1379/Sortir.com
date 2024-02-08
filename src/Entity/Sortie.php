@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -17,18 +18,24 @@ class Sortie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Donner un nom à votre sortie, merci !")]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThanOrEqual("today", message: "Trop tard ! Date dépassée !")]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+   // #[Assert\Range(min: "15", max: "600", notInRangeMessage: "durée mini de la sortie : 15 min ! - durée maxi de la sortie : 10 h")]
     private ?\DateTimeInterface $duree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\LessThan(propertyPath: "dateHeureDebut", message: "les inscriptions sont possibles jusqu'à la veille de la sortie!")]
+
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
+    #[Assert\Range(min:"1", max:"100", notInRangeMessage: "le nombre de participants doit compris entre 1 et 100")]
     private ?int $nbInscriptionsMax = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
