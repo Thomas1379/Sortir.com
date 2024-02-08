@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use App\Form\SortieType;
+use App\Form\VilleType;
 use App\Repository\EtatRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,8 +22,11 @@ class SortieController extends AbstractController
     #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
     public function index(SortieRepository $sortieRepository): Response
     {
+        $user = $this->getUser();
+        $sortie = $sortieRepository->findAll();
         return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortieRepository->findAll(),
+            'sorties' => $sortie,
+            'user' => $user,
         ]);
     }
 
@@ -96,5 +102,18 @@ class SortieController extends AbstractController
         }
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/inscription/{id}', name: 'app_sortie_inscription', methods: ['GET'])]
+    public function inscription(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    {
+        $participant = $this->getUser();
+        $sortie->addParticipant($participant);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('Success', 'Votre inscription a bien était prise en compte');
+        return $this->redirectToRoute('app_sortie_index', [
+            'sorties' => $sortie
+        ]);
     }
 }

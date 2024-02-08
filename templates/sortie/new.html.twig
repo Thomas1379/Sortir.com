@@ -2,14 +2,15 @@
 
 {% block title %}New Sortie{% endblock %}
 {% block body %}
-    <h1>Create new Sortie</h1>
+    <div class="create_Sortie">
+        <h1>Create new Sortie</h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
 
-    <button class="btn" name=submit value="enregistrer">Enregistrer</button>
-    <button class="btn" name=submit value="publier">Publier</button>
-    <button class="btn" name=submit value="annuler">Annuler</button>
-    {{ form_end(form) }}
-
+        <button class="btn" name=submit value="enregistrer">Enregistrer</button>
+        <button class="btn" name=submit value="publier">Publier</button>
+        <button class="btn" name=submit value="annuler">Annuler</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
