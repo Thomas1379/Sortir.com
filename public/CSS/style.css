@@ -13,9 +13,7 @@ footer {
 .container {
   width: 100%;
   min-height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
 }
 
 button, a, input[type=checkbox] {
@@ -92,6 +90,46 @@ button, a, input[type=checkbox] {
 }
 .login form .connect div a {
   margin: 0 10px;
+}
+
+.index_sortie {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.index_sortie table {
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.index_sortie table thead {
+  background-color: #333;
+  color: #FDFDFD;
+}
+.index_sortie table thead tr {
+  display: block;
+  position: relative;
+}
+.index_sortie table thead tr th {
+  width: 100px;
+  text-decoration: underline;
+  padding: 5px;
+  text-align: center;
+}
+.index_sortie table tbody {
+  display: block;
+  overflow: auto;
+  width: 100%;
+  height: 300px;
+}
+.index_sortie table tbody tr:nth-child(even) {
+  background-color: #DDD;
+}
+.index_sortie table tbody tr td {
+  border: 1px black solid;
+  width: 100px;
+  padding: 5px;
+  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */
