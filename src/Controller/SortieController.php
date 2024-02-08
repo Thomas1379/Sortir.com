@@ -23,7 +23,8 @@ class SortieController extends AbstractController
     public function index(SortieRepository $sortieRepository): Response
     {
         $user = $this->getUser();
-        $sortie = $sortieRepository->findAll();
+        $sortie = $sortieRepository->AllTables();
+        //dd($sortie);
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sortie,
             'user' => $user,

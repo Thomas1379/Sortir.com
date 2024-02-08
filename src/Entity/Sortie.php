@@ -26,7 +26,7 @@ class Sortie
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-   // #[Assert\Range(min: "15", max: "600", notInRangeMessage: "durée mini de la sortie : 15 min ! - durée maxi de la sortie : 10 h")]
+   // #[Assert\Range(min: 15, max: 600, notInRangeMessage: "durée mini de la sortie : 15 min ! - durée maxi de la sortie : 10 h")]
     private ?\DateTimeInterface $duree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -35,7 +35,7 @@ class Sortie
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
-    #[Assert\Range(min:"1", max:"100", notInRangeMessage: "le nombre de participants doit compris entre 1 et 100")]
+    #[Assert\Range(min:1, max:99, notInRangeMessage: 'le nombre de participants doit compris entre {{ min }} et {{ max }}')]
     private ?int $nbInscriptionsMax = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

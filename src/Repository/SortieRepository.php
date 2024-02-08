@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use function Symfony\Component\String\s;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -21,28 +23,23 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-//    /**
-//     * @return Sortie[] Returns an array of Sortie objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function AllTables()
+    {
+        //En queryBuilder
 
-//    public function findOneBySomeField($value): ?Sortie
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->addOrderBy('s.nom', 'ASC');
+        $queryBuilder->join('s.organisateur', 'orga');
+        $queryBuilder->join('s.Etat', 'etat');
+        $queryBuilder->Leftjoin('s.Participant', 'part');
+        $queryBuilder->addSelect('orga');
+        $queryBuilder->addSelect('etat');
+        $queryBuilder->addSelect('part');
+
+        $query = $queryBuilder->getQuery();
+        $query->setMaxResults(500);
+        $results = $query->getResult();
+        return $results;
+    }
+
 }
