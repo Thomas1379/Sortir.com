@@ -14,11 +14,30 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/ville')]
 class VilleController extends AbstractController
 {
-    #[Route('/', name: 'app_ville_index', methods: ['GET'])]
-    public function index(VilleRepository $villeRepository): Response
+    #[Route('/', name: 'app_ville_index', methods: ['GET','POST'])]
+    public function index(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        VilleRepository $villeRepository
+    ): Response
     {
+
+        $ville = new Ville();
+        $villeForm = $this->createForm(VilleType::class, $ville);
+
+        $villeForm->handleRequest($request);
+
+        if ($villeForm->isSubmitted() && $villeForm->isValid()) {
+            $entityManager->persist($ville);
+            $entityManager->flush();
+
+            $this->addFlash('success', $ville->getNom() . " a bien été créée !");
+            return $this->redirectToRoute('app_ville_index');
+        }
+
         return $this->render('ville/index.html.twig', [
             'villes' => $villeRepository->findAll(),
+            'villeForm' => $villeForm
         ]);
     }
 
@@ -37,7 +56,7 @@ class VilleController extends AbstractController
             $entityManager->persist($ville);
             $entityManager->flush();
 
-            $this->addFlash('La ville a bien été créée');
+            $this->addFlash('success', $ville->getNom() . " a bien été créée !");
             return $this->redirectToRoute('app_ville_index');
         }
 
@@ -68,7 +87,7 @@ class VilleController extends AbstractController
 
         return $this->render('ville/edit.html.twig', [
             'ville' => $ville,
-            'form' => $form,
+            'villeForm' => $form,
         ]);
     }
 
@@ -82,4 +101,6 @@ class VilleController extends AbstractController
 
         return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

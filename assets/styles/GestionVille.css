@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.ville {
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+th {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover {
+    color: #333;
+}
+h1 {
+    color: #333;
+}
+
+h2 {
+    color: #444;
+}
+
+.ville .actions a {
+    color: #777;
+}
+.ville .actions a {
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.ville .actions a:hover {
+    background-color: #ddd;
+}
+.formulaire {
+    margin-top: 20px;
+}
+
+.formulaire label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.formulaire input {
+    border: 1px solid #ddd;
+    padding: 5px;
+    width: 100%;
+}
+
+.formulaire button {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.formulaire button:hover {
+    background-color: #ddd;
+}
