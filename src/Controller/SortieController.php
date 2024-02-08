@@ -36,33 +36,39 @@ class SortieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $submited = $request->request->get('submit');
-            dump($submited);
+
             switch($submited) {
-                case"enregister":
+                case"enregistrer":
                     {
                         $etat = $etatRepository->find(4);
                         $sortie->setEtat($etat);
-                        dump($sortie);
                         $entityManager->persist($sortie);
                         $entityManager->flush();
+                        $this->addFlash('warning',"Merci, votre sortie est créée, elle n'est pas encore publiée");
+                        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
                     }
-                    break;
+
                 case"publier":
                     {
                         $etat = $etatRepository->find(1);
                         $sortie->setEtat($etat);
-                        dump($sortie);
                         $entityManager->persist($sortie);
                         $entityManager->flush();
+                        $this->addFlash('success',"Merci, votre sortie est créée et publiée");
+                        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
                     }
-                    break;
+
+                case"annuler":
+                    {
+                        $this->addFlash('success',"Votre sortie n'a pas été enregistrée");
+                        return $this->redirectToRoute('app_sortie_new');
+                    }
             }
-            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
-            'form' => $form,
+            'form' => $form
         ]);
     }
 
