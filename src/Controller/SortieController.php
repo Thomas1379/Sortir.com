@@ -96,7 +96,8 @@ class SortieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('Success', '"' . $sortie->getNom() . '" à bien été modifier');
+            return $this->redirectToRoute('app_sortie_show', ['id' => $sortie->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('sortie/edit.html.twig', [
@@ -113,6 +114,7 @@ class SortieController extends AbstractController
             $entityManager->flush();
         }
 
+        $this->addFlash('Success', 'Vous venez de supprimer la sortie "' . $sortie->getNom() . '"');
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/inscription/{id}', name: 'app_sortie_inscription', methods: ['GET'])]
@@ -124,6 +126,32 @@ class SortieController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('Success', 'Votre inscription a bien était prise en compte');
+        return $this->redirectToRoute('app_sortie_index', [
+            'sorties' => $sortie
+        ]);
+    }
+    #[Route('/seDesister/{id}', name: 'app_sortie_seDesister', methods: ['GET'])]
+    public function seDesister(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    {
+        $participant = $this->getUser();
+        $sortie->removeParticipant($participant);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('Success', 'Vous venez de vous désinscrire de la sortie : ' . $sortie->getNom());
+        return $this->redirectToRoute('app_sortie_index', [
+            'sorties' => $sortie
+        ]);
+    }
+    #[Route('/publier/{id}', name: 'app_sortie_publier', methods: ['GET'])]
+    public function publier(Sortie $sortie, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
+    {
+        $participant = $this->getUser();
+        $sortie->setEtat($etatRepository->find(1));
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('Success', 'Votre sortie "' . $sortie->getNom() . '" à bien était publier');
         return $this->redirectToRoute('app_sortie_index', [
             'sorties' => $sortie
         ]);
