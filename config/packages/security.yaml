@@ -36,7 +36,8 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_PARTICIPANT }
-        - { path: ^/organisateur, roles: ROLE_ORGANISATEUR }
+        - { path: ^/sortie, roles: ROLE_PARTICIPANT }
+        #- { path: ^/organisateur, roles: ROLE_ORGANISATEUR }
 
 when@test:
     security:

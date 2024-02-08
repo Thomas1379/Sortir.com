@@ -44,7 +44,18 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
-            ->add('telephone', TextType::class)
+            ->add('telephone', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Votre numéro ne peut pas être vide',
+                    ]),
+                    new Length([
+                        'min' => 10,
+                        'minMessage' => 'Entrer un numéro valide, minimum {{ limit }} chiffres',
+                        'max' => 15,
+                    ]),
+                ],
+            ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'nom',
@@ -52,7 +63,6 @@ class RegistrationFormType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'choices'  => [
                     'Participant' => 'ROLE_PARTICIPANT',
-                    'Organisateur' => 'ROLE_ORGANISATEUR',
                     'Admin' => 'ROLE_ADMIN',
                 ],
                 'multiple' => true,
