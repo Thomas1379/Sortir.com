@@ -14,6 +14,14 @@
         {% include 'inc/nav.html.twig' %}
     </header>
 
+    <div class="flash">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <p>{{ label }}: {{ message }}</p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
     <main class="container">
         {% block body %}
         {% endblock %}
