@@ -13,9 +13,7 @@ footer {
 .container {
   width: 100%;
   min-height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
 }
 
 button, a, input[type=checkbox] {
