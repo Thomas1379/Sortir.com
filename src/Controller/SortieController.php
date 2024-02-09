@@ -20,15 +20,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
-    public function index(SortieRepository $sortieRepository): Response
+    public function index(SortieRepository $sortieRepository, Request $request): Response
     {
-        $user = $this->getUser();
+        $form = $this->createForm(SortieType::class, $sortie);
+        $form->handleRequest($request);
+
+
         $sortie = $sortieRepository->AllTables();
         //dd($sortie);
-        return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortie,
-            'user' => $user,
-        ]);
+        return $this->render('sortie/index.html.twig', ['sorties' => $sortie,]);
     }
 
     #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
