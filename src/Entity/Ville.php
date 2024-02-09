@@ -16,9 +16,11 @@ class Ville
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Donner un nom à votre ville, merci !")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Donner un code postal à votre sortie, merci !")]
     private ?string $codePostal = null;
 
     #[ORM\OneToMany(mappedBy: 'Ville', targetEntity: Lieu::class)]
