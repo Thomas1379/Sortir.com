@@ -21,7 +21,6 @@ class VilleController extends AbstractController
         VilleRepository $villeRepository
     ): Response
     {
-
         $ville = new Ville();
         $villeForm = $this->createForm(VilleType::class, $ville);
 
