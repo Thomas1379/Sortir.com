@@ -8,6 +8,7 @@ use App\Entity\Ville;
 use App\Form\SortieType;
 use App\Form\VilleType;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,6 +38,7 @@ class SortieController extends AbstractController
         $sortie->setCampus($this->getUser()->getCampus());
         $sortie->setOrganisateur($this->getUser());
         $form = $this->createForm(SortieType::class, $sortie);
+
         $form->handleRequest($request);
 
 
@@ -75,6 +77,7 @@ class SortieController extends AbstractController
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
             'form' => $form
+
         ]);
     }
 
@@ -95,7 +98,7 @@ class SortieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            $this->addFlash('Success', '"' . $sortie->getNom() . '" à bien été modifier');
+            $this->addFlash('Success', '"' . $sortie->getNom() . '" a bien été modifiée');
             return $this->redirectToRoute('app_sortie_show', ['id' => $sortie->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -124,7 +127,7 @@ class SortieController extends AbstractController
         $entityManager->persist($sortie);
         $entityManager->flush();
 
-        $this->addFlash('Success', 'Votre inscription a bien était prise en compte');
+        $this->addFlash('Success', 'Votre inscription a bien été prise en compte');
         return $this->redirectToRoute('app_sortie_index', [
             'sorties' => $sortie
         ]);
@@ -150,7 +153,7 @@ class SortieController extends AbstractController
         $entityManager->persist($sortie);
         $entityManager->flush();
 
-        $this->addFlash('Success', 'Votre sortie "' . $sortie->getNom() . '" à bien était publier');
+        $this->addFlash('Success', 'Votre sortie "' . $sortie->getNom() . '" a bien été publiée');
         return $this->redirectToRoute('app_sortie_index', [
             'sorties' => $sortie
         ]);
