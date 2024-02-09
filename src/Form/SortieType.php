@@ -26,7 +26,7 @@ class SortieType extends AbstractType
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la sortie : '])
             ->add('dateHeureDebut', DateTimeType::class, ['label' => 'Date et heure de la sortie : '])
-            ->add('duree', TimeType::class, ['label' => 'Durée : '])
+            ->add('duree', IntegerType::class, ['label' => 'Durée : '])
             ->add('dateLimiteInscription', DateTimeType::class, ['label'=> "Date limite d'inscription :"])
             ->add('nbInscriptionsMax', IntegerType::class, ['label'=> "Nombre de places :"] )
             ->add('infosSortie') #TextareaType::class, ['label'=>'Description et infos :'] - la saisie devient obligatoire avec ce morceau de code (VQ)

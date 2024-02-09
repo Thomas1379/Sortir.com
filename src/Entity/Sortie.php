@@ -25,9 +25,9 @@ class Sortie
     #[Assert\GreaterThanOrEqual("today", message: "Trop tard ! Date dépassée !")]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[ORM\Column]
    // #[Assert\Range(min: 15, max: 600, notInRangeMessage: "durée mini de la sortie : 15 min ! - durée maxi de la sortie : 10 h")]
-    private ?\DateTimeInterface $duree = null;
+    private ?int $duree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\LessThan(propertyPath: "dateHeureDebut", message: "les inscriptions sont possibles jusqu'à la veille de la sortie!")]
@@ -97,12 +97,12 @@ class Sortie
         return $this;
     }
 
-    public function getDuree(): ?\DateTimeInterface
+    public function getDuree(): ?int
     {
         return $this->duree;
     }
 
-    public function setDuree(\DateTimeInterface $duree): static
+    public function setDuree(int $duree): static
     {
         $this->duree = $duree;
 

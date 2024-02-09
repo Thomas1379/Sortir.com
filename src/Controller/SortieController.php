@@ -22,8 +22,7 @@ class SortieController extends AbstractController
     #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
     public function index(SortieRepository $sortieRepository, Request $request): Response
     {
-        $form = $this->createForm(SortieType::class, $sortie);
-        $form->handleRequest($request);
+
 
 
         $sortie = $sortieRepository->AllTables();

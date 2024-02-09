@@ -31,7 +31,7 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder->addOrderBy('s.nom', 'ASC');
         $queryBuilder->join('s.organisateur', 'orga');
         $queryBuilder->join('s.Etat', 'etat');
-        $queryBuilder->Leftjoin('s.Participant', 'part');
+        $queryBuilder->LeftJoin('s.Participant', 'part');
         $queryBuilder->addSelect('orga');
         $queryBuilder->addSelect('etat');
         $queryBuilder->addSelect('part');
