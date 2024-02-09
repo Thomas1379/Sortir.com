@@ -32,39 +32,17 @@ img {
   border: 1px solid #ddd;
 }
 
-.ville {
+.index_Ville {
   border: 1px solid #ddd;
   padding: 20px;
 }
-.ville .actions a {
+.index_Ville .actions a {
   color: #777;
   border: 1px solid #ddd;
   padding: 5px 10px;
   border-radius: 5px;
 }
-.ville .actions a:hover {
-  background-color: #ddd;
-}
-
-.formulaire {
-  margin-top: 20px;
-}
-.formulaire label {
-  display: block;
-  margin-bottom: 5px;
-}
-.formulaire input {
-  border: 1px solid #ddd;
-  padding: 5px;
-  width: 100%;
-}
-.formulaire button {
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-.formulaire button:hover {
+.index_Ville .actions a:hover {
   background-color: #ddd;
 }
 

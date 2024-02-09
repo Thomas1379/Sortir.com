@@ -34,7 +34,7 @@ img {
   border: 1px solid #ddd;
 }
 
-.ville {
+.index_Ville {
   border: 1px solid #ddd;
   padding: 20px;
   .actions {
@@ -46,28 +46,6 @@ img {
       &:hover {
         background-color: #ddd;
       }
-    }
-  }
-}
-
-.formulaire {
-  margin-top: 20px;
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  input {
-    border: 1px solid #ddd;
-    padding: 5px;
-    width: 100%;
-  }
-  button {
-    margin-top: 10px;
-    border: 1px solid #ddd;
-    padding: 5px 10px;
-    border-radius: 5px;
-    &:hover {
-      background-color: #ddd;
     }
   }
 }
