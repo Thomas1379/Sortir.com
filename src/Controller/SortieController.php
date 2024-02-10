@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Entity\Ville;
+use App\Form\SearchType;
 use App\Form\SortieType;
 use App\Form\VilleType;
 use App\Repository\EtatRepository;
@@ -19,15 +20,24 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
-    #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
+    #[Route('/', name: 'app_sortie_index', methods: ['GET', 'POST'])]
     public function index(SortieRepository $sortieRepository, Request $request): Response
     {
+        $form = $this->createForm(SearchType::class, null, ['method' => 'GET']);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $value = $form->getData();
+            dump($value);
+        }
 
 
         $sortie = $sortieRepository->AllTables();
         //dd($sortie);
-        return $this->render('sortie/index.html.twig', ['sorties' => $sortie,]);
+        return $this->render('sortie/index.html.twig', [
+            'sorties' => $sortie,
+            'form' => $form,
+        ]);
     }
 
     #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
