@@ -27,11 +27,12 @@ class CampusController extends AbstractController
         $campusForm->handleRequest($request);
 
         if ($campusForm->isSubmitted() && $campusForm->isValid()) {
+            dd($campus);
             $entityManager->persist($campus);
             $entityManager->flush();
 
             $this->addFlash('success', $campus->getNom() . " a bien été créée !");
-            return $this->redirectToRoute('app_ville_index');
+            return $this->redirectToRoute('app_campus_index');
         }
         return $this->render('campus/index.html.twig', [
             'campuses' => $campusRepository->findAll(),

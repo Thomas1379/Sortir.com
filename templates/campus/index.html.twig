@@ -15,23 +15,29 @@
             </tr>
         </thead>
         <tbody>
-        {% for campus in id %}
+        {% for campus in campuses %}
             <tr>
-
                 <td>{{ campus.nom }}</td>
                 <td>
                     <a href="{{ path('app_campus_show', {'id': campus.id}) }}">show</a>
                     <a href="{{ path('app_campus_edit', {'id': campus.id}) }}">edit</a>
                 </td>
             </tr>
+            {% if loop.last  %}
+                <tr>
+                    {{ form_start(campusForm) }}
+                    <td>{{ form_row(campusForm.nom) }}</td>
+                    <td><button>Enregristrer</button></td>
+                    {{ form_end(campusForm) }}
+                </tr>
+            {% endif %}
         {% else %}
+
             <tr>
                 <td colspan="3">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_campus_new') }}">Create new</a>
     </div>
 {% endblock %}
