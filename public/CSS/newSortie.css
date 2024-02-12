@@ -1,0 +1,53 @@
+.new_Sortie {
+    font-family: "Calibri", serif;
+
+    .formulaire {
+        column-count: 2;
+        text-align: justify;
+    }
+
+    label {
+        font-size: larger;
+        margin-right: 0px;
+        margin-left: 20px;
+        width: 100%;
+    }
+
+    input, textarea {
+        display: flex;
+        font-size: 1.2em;
+        padding: 0.25em;
+        width: 40%;
+        margin-bottom: 1em;
+        margin-left: 20px;
+        border-radius: 3px;
+        border: 1px solid #BABABA;
+    }
+
+
+    .btn {
+        background-color: #1255a2;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: larger;
+    }
+
+    .boutons {
+        padding-top: 5%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    h1, h2 {
+        color: #1255a2;
+        width: 100%;
+        text-align: center;
+    }
+
+    h3 {
+        margin-left: 20px;
+    }
+}

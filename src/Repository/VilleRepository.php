@@ -21,28 +21,24 @@ class VilleRepository extends ServiceEntityRepository
         parent::__construct($registry, Ville::class);
     }
 
-//    /**
-//     * @return Ville[] Returns an array of Ville objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('v.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getAllVille()
+    {
+        $queryBuilder = $this->createQueryBuilder('v');
+        $queryBuilder->addOrderBy('v.nom', 'DESC');
 
-//    public function findOneBySomeField($value): ?Ville
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        //$queryBuilder->addOrderBy('s.nom', 'ASC');
+        //$queryBuilder->join('s.organisateur', 'orga');
+        //$queryBuilder->join('s.Etat', 'etat');
+        //$queryBuilder->LeftJoin('s.Participant', 'part');
+        //$queryBuilder->addSelect('orga');
+        //$queryBuilder->addSelect('etat');
+        //$queryBuilder->addSelect('part');
+
+        $query = $queryBuilder->getQuery();
+        $query->setMaxResults(500);
+        $results = $query->getResult();
+        return $results;
+    }
+
+
 }

@@ -9,14 +9,41 @@
     <h2>Salut {{ app.user.pseudo }} !</h2>
 
         <h3>Campus de {{ app.user.campus.nom}} </h3>
+            <div class="formulaire">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <div>
+                    <label for="sortie_lieu">LieuTruc</label>
+                    <select name="sortie[lieu]" id="sortie_lieu" required="required">
+                        <option value="" selected="selected" disabled>Choisissez un lieu</option>
+                        {% for ville in villes %}
+                            <optgroup label="{{ ville.nom }}">
+                            {% for lieu in ville.getLieus %}
+                                <option value="{{ lieu.id }}">{{ lieu.nom }}</option>
+                            {% endfor %}
+                            </optgroup>
 
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
+                        {% endfor %}
+                    </select>
+                </div>
 
-        <button class="btn" name=submit value="enregistrer">Enregistrer</button>
-        <button class="btn" name=submit value="publier">Publier</button>
-        <button class="btn" name=submit value="annuler">Annuler</button>
-        {{ form_end(form) }}
+              {#  {% for lieu in lieus %}
+                    {%  if  %}
+                <p>Ville : {{ lieu.Ville.nom }}</p>
+                <p>Rue : {{ lieu.rue}}</p>
+                <p>Code Postal : {{ lieu.Ville.codePostal}}</p>
+                <p>Latitude : {{ lieu.latitude }}</p>
+                <p>Longitude : {{ lieu.longitude }}</p>
+                    {% else %}
+                <!--Cliquer sur le bouton plus-->
+                    {% endif %}#}
+
+            </div>
+            <div class="boutons">
+                <button class="btn" name=submit value="enregistrer">Enregistrer</button>
+                <button class="btn" name=submit value="publier">Publier</button>
+                <button class="btn" name=submit value="annuler">Annuler</button>
+            </div>
+                {{ form_end(form) }}
     </div>
 {% endblock %}
-aff

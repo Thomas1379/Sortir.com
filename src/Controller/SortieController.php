@@ -37,6 +37,9 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $sortie->setCampus($this->getUser()->getCampus());
         $sortie->setOrganisateur($this->getUser());
+
+        $villes = $villeRepository->getAllVille();
+
         $form = $this->createForm(SortieType::class, $sortie);
 
         $form->handleRequest($request);
@@ -44,6 +47,8 @@ class SortieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $submited = $request->request->get('submit');
+            $lieu = $lieuRepository->findOneBy(['id' => $request->request->all('sortie')['lieu']]);
+            $sortie->setLieu($lieu);
 
             switch($submited) {
                 case"enregistrer":

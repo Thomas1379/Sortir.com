@@ -61,6 +61,8 @@ class SortieType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Sortie::class,
+            "csrf_protection" => "false",
+            "allow_extra_fields" => true
         ]);
     }
 }
