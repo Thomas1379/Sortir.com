@@ -21,13 +21,21 @@ class VilleController extends AbstractController
         VilleRepository $villeRepository
     ): Response
     {
+        // Recherche d'une ville (par nom ou code postal)
+       $searchTerm = $request->query->get('search', '');
+        dump($searchTerm);
+        $villeSearch = $villeRepository->searchByNomOrCodePostal($searchTerm);
+
         // Création d'une nouvelle ville
+        $allVilles = $villeRepository->findAll();
         $ville = new Ville();
         $villeForm = $this->createForm(VilleType::class, $ville);
         $villeForm->handleRequest($request);
+        dump($villeSearch);
 
         // Enregistrement dans la bdd si rempli et validé
         if ($villeForm->isSubmitted() && $villeForm->isValid()) {
+
             $entityManager->persist($ville);
             $entityManager->flush();
 
@@ -36,13 +44,29 @@ class VilleController extends AbstractController
             return $this->redirectToRoute('app_ville_index');
         }
 
-        // Affichage de la liste des villes créées et du formulaire de création
-        return $this->render('ville/index.html.twig', [
-            'villes' => $villeRepository->findAll(),
-            'villeForm' => $villeForm
-        ]);
-    }
 
+        // Affichage de la liste des villes créées et du formulaire de création
+
+        return $this->render('ville/index.html.twig', [
+            'searchTerm' => $searchTerm,
+            'villes' => $allVilles,
+            'villeForm' => $villeForm,
+         ]);
+
+}
+/*#[Route("/", name:"app_ville_index", methods:["GET"])]
+public function listeVilles(Request $request, VilleRepository $villeRepository): Response
+{
+    $searchTerm = $request->query->get('search', '');
+
+    // Utiliser le repository pour effectuer la recherche
+    $villes = $villeRepository->searchByNomOrCodePostal($searchTerm);
+
+    return $this->render('ville/index.html.twig', [
+        'villes' => $villes,
+        'searchTerm' => $searchTerm,
+    ]);
+}*/
     #[Route('/{id}', name: 'app_ville_show', methods: ['GET'])]
     public function show(Ville $ville): Response
     {
@@ -92,6 +116,9 @@ class VilleController extends AbstractController
         // Retour à la liste des villes après suppression
         return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
 
 
 }

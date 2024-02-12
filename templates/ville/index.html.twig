@@ -7,7 +7,12 @@
     <div class="index_Ville">
         <h1>Liste des villes</h1>
         {#  Recherche d'une ville (par nom ou code postal dans la liste #}
-        <p>Le nom contient :</p>
+        <form method="get" action="{{ path('app_ville_index') }}">
+            <label for="search">Le nom contient :</label>
+            <input type="text" id="search" name="search">
+            <button type="submit">Rechercher</button>
+
+        </form>
 
         {#  Affichage de la liste des villes #}
         <table>
@@ -23,30 +28,27 @@
                 <tr>
                     {# Détails de la ville #}
                     <td>
-                        {% if loop.last %}
-                            {{ form_row(villeForm.nom) }}
-                        {% else %}
-                            <a href="{{ path('app_ville_show', {'id': ville.id}) }}">{{ ville.nom }}</a>
-                        {% endif  %}
+                        <a href="{{ path('app_ville_show', {'id': ville.id}) }}">{{ ville.nom }}</a>
                     </td>
                     <td>
-                        {% if loop.last %}
-                            {{ form_row(villeForm.codePostal) }}
-                        {% else %}
-                            {{ ville.codePostal }}
-                        {% endif  %}
+                        {{ ville.codePostal }}
                     </td>
                     <td>
                         {# Modifier la ville #}
-                        {% if not loop.last %}
-                            <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">Modifier</a>
-                            {# Supprimer la ville #}
+                        <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">Modifier</a>
+                        {# Supprimer la ville #}
                         <a href="{{ path('app_ville_delete', {'id': ville.id}) }}">Supprimer</a>
-                            {% else %}
-                                {{ include('ville/_form.html.twig') }}
-                       {% endif %}
                     </td>
                 </tr>
+                {% if loop.last %}
+                    <tr>
+                        {{ form_start(villeForm) }}
+                        <td>{{ form_row(villeForm.nom) }}</td>
+                        <td>{{ form_row(villeForm.codePostal) }}</td>
+                        <td><button class="btn" type="submit" name="submit">Enregistrer</button></td>
+                        {{ form_end(villeForm) }}
+                    </tr>
+                {% endif %}
             {% else %}
                 <tr>
                     <td colspan="4">no records found</td>
