@@ -1,4 +1,9 @@
 
+<div>
+    <p>Nom : {{ ville.nom }}</p>
+    <p>Code Postal : {{ ville.codePostal }}</p>
+</div>
+
 <form method="post" action="{{ path('app_ville_delete',
     {'id': ville.id}) }}"
 
