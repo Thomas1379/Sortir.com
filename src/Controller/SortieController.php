@@ -128,12 +128,17 @@ class SortieController extends AbstractController
     #[Route('/inscription/{id}', name: 'app_sortie_inscription', methods: ['GET'])]
     public function inscription(Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
+        if( $sortie->getDateLimiteInscription()<getdate()) {
         $participant = $this->getUser();
         $sortie->addParticipant($participant);
         $entityManager->persist($sortie);
         $entityManager->flush();
-
         $this->addFlash('Success', 'Votre inscription a bien été prise en compte');
+
+        }else
+        {
+            $this->addFlash('Fail', "La date d'inscription est dépassée");
+        }
         return $this->redirectToRoute('app_sortie_index', [
             'sorties' => $sortie
         ]);
