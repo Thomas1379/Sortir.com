@@ -22,6 +22,7 @@ class VilleRepository extends ServiceEntityRepository
         parent::__construct($registry, Ville::class);
     }
 
+    //Recherche par nom ou par code Postal
     public function searchByNomOrCodePostal($searchTerm)
     {
         $queryBuilder = $this->createQueryBuilder('v');
@@ -35,28 +36,11 @@ class VilleRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
-//    /**
-//     * @return Ville[] Returns an array of Ville objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('v.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Ville
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    // Recherche si une ville (avec le même nom et le même code postal) existe déjà
+   /* public function findByNomAndCodePostal(string $nom, string $codePostal): ?Ville
+    {
+        return $this->findOneBy(['nom' => $nom, 'codePostal' => $codePostal]);
+    }*/
+
 }

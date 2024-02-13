@@ -12,7 +12,6 @@
             <label for="search">Le nom contient :</label>
             <input type="text" id="search" name="search">
             <button type="submit">Rechercher</button>
-
         </form>
 
         {#  Affichage de la liste des villes #}
@@ -28,17 +27,13 @@
             {% for ville in villes %}
                 <tr>
                     {# Détails de la ville #}
-                    <td>
-                        <a href="{{ path('app_ville_show', {'id': ville.id}) }}">{{ ville.nom }}</a>
-                    </td>
-                    <td>
-                        {{ ville.codePostal }}
-                    </td>
+                    <td>{{ ville.nom }}</td>
+                    <td>{{ ville.codePostal }}</td>
                     <td>
                         {# Modifier la ville #}
                         <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">Modifier</a>
                         {# Supprimer la ville #}
-                        <a href="{{ path('app_ville_delete', {'id': ville.id}) }}">Supprimer</a>
+                        <a href="{{ path('app_ville_delete', {'id': ville.id}) }}" >Supprimer</a>
                     </td>
                 </tr>
                 {% if loop.last %}
