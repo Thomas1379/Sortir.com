@@ -21,7 +21,7 @@ class VilleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Ville::class);
     }
-
+  
     //Recherche par nom ou par code Postal
     public function searchByNomOrCodePostal($searchTerm)
     {

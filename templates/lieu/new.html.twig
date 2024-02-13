@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau lieu | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="new_Sortie">
+    <h1>Créer un nouveau lieu</h1>
+    <div class="formulaire">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+    </div>
+    <div class="boutons">
+        <button class="btn" name=submit value="enregistrer">Enregistrer</button>
+        <button class="btn" name=submit value="annuler"><a href="{{ path('app_sortie_new') }}">Annuler</a></button>
+    </div>
+    {{ form_end(form) }}
+    </div>
+{% endblock %}
