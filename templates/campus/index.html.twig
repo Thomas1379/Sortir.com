@@ -3,33 +3,53 @@
 {% block title %}Campus index{% endblock %}
 
 {% block body %}
+    <div class="index_Campus">
+        <link rel="stylesheet" href="{{ asset('CSS/SCSS/style.scss') }}"/>
     <h1>Campus index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
+
+                <th>Campus</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for campus in campuses %}
             <tr>
-                <td>{{ campus.id }}</td>
                 <td>{{ campus.nom }}</td>
                 <td>
                     <a href="{{ path('app_campus_show', {'id': campus.id}) }}">show</a>
                     <a href="{{ path('app_campus_edit', {'id': campus.id}) }}">edit</a>
+
                 </td>
             </tr>
+            {% if loop.last  %}
+                <tr>
+{#                    // Recherche de campus par nom ou CP
+                    {#$searchTerm=$request->query->get(key 'search', default'');
+                    if ($searchTerm !='') {
+                        $campus = $campusRepository->searchByNomOrCodePostal($searchTerm);
+                    }
+                    else {
+                        $campus = $campusRepository->findAll();
+                    }#}
+
+                    </form>
+                    {{ form_start(campusForm) }}
+                    <td>{{ form_row(campusForm.nom) }}</td>
+                    <td><button>Enregristrer</button></td>
+                    {{ form_end(campusForm) }}
+                </tr>
+            {% endif %}
         {% else %}
+
             <tr>
                 <td colspan="3">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_campus_new') }}">Create new</a>
+    </div>
 {% endblock %}
