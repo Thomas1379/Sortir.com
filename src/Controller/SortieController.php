@@ -11,6 +11,7 @@ use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
-    public function index(SortieRepository $sortieRepository, Request $request): Response
+    public function index(SortieRepository $sortieRepository, Request $request, LieuRepository $lieuRepository): Response
     {
-
-
 
         $sortie = $sortieRepository->AllTables();
         //dd($sortie);
@@ -32,7 +31,11 @@ class SortieController extends AbstractController
     }
 
     #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
+    public function new(Request $request,
+                        EntityManagerInterface $entityManager,
+                        EtatRepository $etatRepository,
+                        LieuRepository $lieuRepository,
+                        VilleRepository $villeRepository): Response
     {
         $sortie = new Sortie();
         $sortie->setCampus($this->getUser()->getCampus());
@@ -41,9 +44,7 @@ class SortieController extends AbstractController
         $villes = $villeRepository->getAllVille();
 
         $form = $this->createForm(SortieType::class, $sortie);
-
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $submited = $request->request->get('submit');
@@ -74,15 +75,15 @@ class SortieController extends AbstractController
                 case"annuler":
                     {
                         $this->addFlash('success',"Votre sortie n'a pas été enregistrée");
-                        return $this->redirectToRoute('app_sortie_new');
+                        return $this->redirectToRoute('app_sortie_index');
                     }
             }
         }
 
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
-            'form' => $form
-
+            'villes' => $villes,
+            'form' => $form,
         ]);
     }
 

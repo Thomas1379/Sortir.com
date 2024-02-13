@@ -8,12 +8,11 @@
 
     label {
         font-size: larger;
-        margin-right: 0px;
         margin-left: 20px;
         width: 100%;
     }
 
-    input, textarea {
+    input, textarea, select {
         display: flex;
         font-size: 1.2em;
         padding: 0.25em;
@@ -24,10 +23,9 @@
         border: 1px solid #BABABA;
     }
 
-
     .btn {
-        background-color: #1255a2;
-        color: white;
+        background-color: #BABABA;
+        color: #551A8B;
         padding: 12px 20px;
         border: none;
         border-radius: 4px;
@@ -42,7 +40,7 @@
     }
 
     h1, h2 {
-        color: #1255a2;
+        color: #551A8B;
         width: 100%;
         text-align: center;
     }
@@ -50,4 +48,6 @@
     h3 {
         margin-left: 20px;
     }
+
+
 }

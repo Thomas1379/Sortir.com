@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Sortie{% endblock %}
+{% block title %}Nouvelle sortie | {{ parent() }}{% endblock %}
 {% block body %}
     <div class="new_Sortie">
 
@@ -13,7 +13,7 @@
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
                 <div>
-                    <label for="sortie_lieu">LieuTruc</label>
+                    <label for="sortie_lieu">Lieu :</label>
                     <select name="sortie[lieu]" id="sortie_lieu" required="required">
                         <option value="" selected="selected" disabled>Choisissez un lieu</option>
                         {% for ville in villes %}
@@ -22,27 +22,17 @@
                                 <option value="{{ lieu.id }}">{{ lieu.nom }}</option>
                             {% endfor %}
                             </optgroup>
-
                         {% endfor %}
                     </select>
                 </div>
-
-              {#  {% for lieu in lieus %}
-                    {%  if  %}
-                <p>Ville : {{ lieu.Ville.nom }}</p>
-                <p>Rue : {{ lieu.rue}}</p>
-                <p>Code Postal : {{ lieu.Ville.codePostal}}</p>
-                <p>Latitude : {{ lieu.latitude }}</p>
-                <p>Longitude : {{ lieu.longitude }}</p>
-                    {% else %}
-                <!--Cliquer sur le bouton plus-->
-                    {% endif %}#}
+                <a href="{{ path('app_lieu_new') }}">
+                    <img class="plus" src="{{ asset('img/plus.png') }}" alt="Créer un nouveau lieu" width="10%"></a>
 
             </div>
             <div class="boutons">
                 <button class="btn" name=submit value="enregistrer">Enregistrer</button>
-                <button class="btn" name=submit value="publier">Publier</button>
-                <button class="btn" name=submit value="annuler">Annuler</button>
+                <button class="btn" name=submit value="publier">Publier la sortie</button>
+                <button class="btn" name=submit value="annuler"><a href="{{ path('app_sortie_index') }}">Annuler</a></button>
             </div>
                 {{ form_end(form) }}
     </div>
