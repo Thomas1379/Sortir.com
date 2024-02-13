@@ -91,6 +91,7 @@ class SortieController extends AbstractController
     #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
     public function show(Sortie $sortie): Response
     {
+
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);
@@ -129,7 +130,7 @@ class SortieController extends AbstractController
     #[Route('/inscription/{id}', name: 'app_sortie_inscription', methods: ['GET'])]
     public function inscription(Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
-        $now = new DateTime();
+        $now = new \DateTime();
         if( $sortie->getDateLimiteInscription()>$now) {
         $participant = $this->getUser();
         $sortie->addParticipant($participant);
@@ -148,7 +149,7 @@ class SortieController extends AbstractController
     #[Route('/seDesister/{id}', name: 'app_sortie_seDesister', methods: ['GET'])]
     public function seDesister(Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
-        $now = new DateTime();
+        $now = new \DateTime();
         if( $sortie->getDateHeureDebut()>$now) {
         $participant = $this->getUser();
         $sortie->removeParticipant($participant);
@@ -179,4 +180,5 @@ class SortieController extends AbstractController
             'sorties' => $sortie
         ]);
     }
+
 }
