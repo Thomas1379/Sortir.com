@@ -23,10 +23,8 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function AllTables()
+    public function allTables()
     {
-        //En queryBuilder
-
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->addOrderBy('s.nom', 'ASC');
         $queryBuilder->join('s.organisateur', 'orga');
@@ -37,7 +35,28 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder->addSelect('part');
 
         $query = $queryBuilder->getQuery();
-        $query->setMaxResults(500);
+        $query->setMaxResults(20);
+        $results = $query->getResult();
+        return $results;
+    }
+
+    public function searchByName($search)
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+
+        $queryBuilder->where('s.nom LIKE :search');
+        $queryBuilder->setParameter('search', '%' . $search['search'] . '%');
+
+        $queryBuilder->addOrderBy('s.nom', 'ASC');
+        $queryBuilder->join('s.organisateur', 'orga');
+        $queryBuilder->join('s.Etat', 'etat');
+        $queryBuilder->LeftJoin('s.Participant', 'part');
+        $queryBuilder->addSelect('orga');
+        $queryBuilder->addSelect('etat');
+        $queryBuilder->addSelect('part');
+
+        $query = $queryBuilder->getQuery();
+        $query->setMaxResults(20);
         $results = $query->getResult();
         return $results;
     }
