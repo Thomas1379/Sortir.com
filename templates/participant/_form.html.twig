@@ -1,0 +1,6 @@
+{{ form_start(participantForm) }}
+    {{ form_widget(participantForm) }}
+    <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+    <button class="btn"><a href="{{ path('app_participant_index') }}">Annuler</a></button>
+
+{{ form_end(participantForm) }}

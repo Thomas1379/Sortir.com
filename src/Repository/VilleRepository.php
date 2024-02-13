@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Ville;
+
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,25 +21,26 @@ class VilleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Ville::class);
     }
-
-    public function getAllVille()
+  
+    //Recherche par nom ou par code Postal
+    public function searchByNomOrCodePostal($searchTerm)
     {
         $queryBuilder = $this->createQueryBuilder('v');
-        $queryBuilder->addOrderBy('v.nom', 'DESC');
 
-        //$queryBuilder->addOrderBy('s.nom', 'ASC');
-        //$queryBuilder->join('s.organisateur', 'orga');
-        //$queryBuilder->join('s.Etat', 'etat');
-        //$queryBuilder->LeftJoin('s.Participant', 'part');
-        //$queryBuilder->addSelect('orga');
-        //$queryBuilder->addSelect('etat');
-        //$queryBuilder->addSelect('part');
+        if ($searchTerm) {
+            $queryBuilder
+                ->andWhere('v.nom LIKE :searchTerm OR v.codePostal LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
 
-        $query = $queryBuilder->getQuery();
-        $query->setMaxResults(500);
-        $results = $query->getResult();
-        return $results;
+        return $queryBuilder->getQuery()->getResult();
     }
 
+
+    // Recherche si une ville (avec le même nom et le même code postal) existe déjà
+   /* public function findByNomAndCodePostal(string $nom, string $codePostal): ?Ville
+    {
+        return $this->findOneBy(['nom' => $nom, 'codePostal' => $codePostal]);
+    }*/
 
 }

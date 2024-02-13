@@ -8,7 +8,10 @@
 
     <h1>Modifier la ville</h1>
 
-    {{ include('ville/_form.html.twig', {'button_label': 'Modifier'}) }}
+    {{ form_start(villeForm) }}
+    {{ form_widget(villeForm) }}
+    <td><button class="btn" type="submit" name="submit">Enregistrer</button></td>
+    {{ form_end(villeForm) }}
 
     <a href="{{ path('app_ville_index') }}">Retour à la liste des villes</a>
 
