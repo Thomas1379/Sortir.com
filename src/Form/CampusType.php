@@ -12,7 +12,7 @@ class CampusType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', null, ['label'=>false,'attr' => ['placeholder' =>'Saisir Campus' ]]); // todo:  enlever le label
+            ->add('nom', null, ['label'=>false,'attr' => ['placeholder' =>'Saisir Campus' ]]);
         ;
     }
 
