@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 #[Route('/sortie')]
 class SortieController extends AbstractController
@@ -128,7 +129,8 @@ class SortieController extends AbstractController
     #[Route('/inscription/{id}', name: 'app_sortie_inscription', methods: ['GET'])]
     public function inscription(Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
-        if( $sortie->getDateLimiteInscription()<getdate()) {
+        $now = new DateTime();
+        if( $sortie->getDateLimiteInscription()>$now) {
         $participant = $this->getUser();
         $sortie->addParticipant($participant);
         $entityManager->persist($sortie);
@@ -146,16 +148,24 @@ class SortieController extends AbstractController
     #[Route('/seDesister/{id}', name: 'app_sortie_seDesister', methods: ['GET'])]
     public function seDesister(Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
+        $now = new DateTime();
+        if( $sortie->getDateHeureDebut()>$now) {
         $participant = $this->getUser();
         $sortie->removeParticipant($participant);
         $entityManager->persist($sortie);
         $entityManager->flush();
 
         $this->addFlash('Success', 'Vous venez de vous désinscrire de la sortie : ' . $sortie->getNom());
+
+        }
+        else{
+            $this->addFlash('Fail', "trop tard ! La date de la sortie est dépassée");
+                }
         return $this->redirectToRoute('app_sortie_index', [
             'sorties' => $sortie
-        ]);
-    }
+            ]);
+        }
+
     #[Route('/publier/{id}', name: 'app_sortie_publier', methods: ['GET'])]
     public function publier(Sortie $sortie, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
