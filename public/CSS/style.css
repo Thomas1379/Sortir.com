@@ -187,34 +187,81 @@ img {
   align-items: center;
   flex-direction: column;
 }
-.index_Sortie table {
+.index_Sortie .search {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+.index_Sortie .search .div1 {
+  grid-area: 1/1/2/2;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 10px;
+}
+.index_Sortie .search .div1 div:nth-child(1) {
+  grid-area: 1/1/2/2;
+  display: flex;
+  justify-content: space-between;
+}
+.index_Sortie .search .div1 div:nth-child(2) {
+  grid-area: 2/1/3/2;
+  display: flex;
+  justify-content: space-between;
+}
+.index_Sortie .search .div1 div:nth-child(3) {
+  grid-area: 3/1/4/2;
+  display: flex;
+  justify-content: space-between;
+}
+.index_Sortie .search .div1 div select, .index_Sortie .search .div1 div input {
+  width: 200px;
+}
+.index_Sortie .search .div1 label {
+  text-align: right;
+}
+.index_Sortie .search .div2 {
+  grid-area: 1/2/2/3;
+}
+.index_Sortie .search .submit {
+  grid-area: 2/1/3/3;
+}
+.index_Sortie .search br {
+  content: "";
+  display: block;
+  margin: 10px 0;
+}
+.index_Sortie .table {
   table-layout: fixed;
   border-collapse: collapse;
 }
-.index_Sortie table thead {
+.index_Sortie .table thead {
   background-color: #333;
   color: #FDFDFD;
 }
-.index_Sortie table thead tr {
+.index_Sortie .table thead tr {
   display: block;
   position: relative;
 }
-.index_Sortie table thead tr th {
+.index_Sortie .table thead tr th {
   width: 100px;
   text-decoration: underline;
   padding: 5px;
   text-align: center;
 }
-.index_Sortie table tbody {
+.index_Sortie .table tbody {
   display: block;
   overflow: auto;
   width: 100%;
   height: 300px;
 }
-.index_Sortie table tbody tr:nth-child(even) {
+.index_Sortie .table tbody tr:nth-child(even) {
   background-color: #DDD;
 }
-.index_Sortie table tbody tr td {
+.index_Sortie .table tbody tr td {
   border: 1px black solid;
   width: 100px;
   padding: 5px;

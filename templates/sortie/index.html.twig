@@ -6,11 +6,34 @@
     <div class="index_Sortie">
         <h1>Sortie index</h1>
 
-        <form action="{{ path('app_sortie_index') }}" method="get">
-            <label for="search">Rechercher :</label>
-            <input type="text" name="search" id="search" placeholder="Rechercher une sortie">
-            <input type="text" name="chose" id="chose" placeholder="Rechercher une chose">
-            <button type="submit">Rechercher</button>
+        <h2 class="filter_title">Filtre</h2>
+        <form class="search" action="{{ path('app_sortie_index') }}" method="get">
+            <div class="div1">
+                <div>
+                    <label for="campus">Campus</label>
+                    <select name="campus" id="campus">
+                        <option value="">Campus1</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="search">Le nom de la sortie contient :</label>
+                    <input type="text" name="search" id="search" placeholder="Rechercher une sortie">
+                </div>
+                <div>
+                    Entre <input type="date" name="date1" id="date1">
+                    et <input type="date" name="date2" id="date2">
+                </div>
+            </div>
+            <div class="div2">
+                <input type="checkbox" name="orga" id="orga"> Sorties dont je suis l'organisateur/trice
+                <br>
+                <input type="checkbox" name="inscrit" id="inscrit"> Sorties auxquelles je suis inscrit/e
+                <br>
+                <input type="checkbox" name="noinscrit" id="noinscrit"> Sorties auxquelles je ne suis pas inscrit/e
+                <br>
+                <input type="checkbox" name="passe" id="passe"> Sorties passées
+            </div>
+            <button class="submit" type="submit">Rechercher</button>
         </form>
 
         <table class="table">
