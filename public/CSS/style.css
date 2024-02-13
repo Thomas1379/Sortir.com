@@ -29,7 +29,6 @@ img {
   height: auto;
   display: block;
   margin: 0 auto;
-  border: 1px solid #ddd;
 }
 
 .index_Ville {
@@ -303,6 +302,51 @@ img {
 }
 .index_Campus .form-submit:hover {
   background-color: #0069d9;
+}
+
+.new_Sortie {
+  font-family: "Calibri", serif;
+}
+.new_Sortie .formulaire {
+  columns: 2;
+  display: block;
+}
+.new_Sortie label {
+  font-size: larger;
+  margin-left: 20px;
+  width: 100%;
+}
+.new_Sortie input, .new_Sortie textarea, .new_Sortie select {
+  display: block;
+  font-size: 1.2rem;
+  padding: 0.25em;
+  width: 40%;
+  margin-bottom: 1em;
+  margin-left: 20px;
+  border-radius: 3px;
+  border: 1px solid #BABABA;
+}
+.new_Sortie .btn {
+  background-color: #BABABA;
+  color: #551A8B;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: larger;
+  margin: 0 10px;
+}
+.new_Sortie .boutons {
+  padding-top: 5%;
+  display: flex;
+  justify-content: center;
+}
+.new_Sortie h1, .new_Sortie h2 {
+  color: #551A8B;
+  width: 100%;
+  text-align: center;
+}
+.new_Sortie h3 {
+  margin-left: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */
