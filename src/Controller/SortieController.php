@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function PHPUnit\Framework\isEmpty;
 
 #[Route('/sortie')]
 class SortieController extends AbstractController
@@ -23,20 +24,20 @@ class SortieController extends AbstractController
     #[Route('/', name: 'app_sortie_index', methods: ['GET', 'POST'])]
     public function index(SortieRepository $sortieRepository, Request $request): Response
     {
-        $form = $this->createForm(SearchType::class, null, ['method' => 'GET']);
-        $form->handleRequest($request);
+        $search = $request->query->all();
+        dump($request->query->all());
+        dump(count($search));
+        dump(empty($search));
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $value = $form->getData();
-            dump($value);
+        if(count($search) > 0) {
+            $sorties = $sortieRepository->searchByName($search);
+        } else {
+            dump('else');
+            $sorties = $sortieRepository->allTables();
         }
 
-
-        $sortie = $sortieRepository->AllTables();
-        //dd($sortie);
         return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortie,
-            'form' => $form,
+            'sorties' => $sorties,
         ]);
     }
 

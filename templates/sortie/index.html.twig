@@ -6,9 +6,12 @@
     <div class="index_Sortie">
         <h1>Sortie index</h1>
 
-        <div class="search">
-
-        </div>
+        <form action="{{ path('app_sortie_index') }}" method="get">
+            <label for="search">Rechercher :</label>
+            <input type="text" name="search" id="search" placeholder="Rechercher une sortie">
+            <input type="text" name="chose" id="chose" placeholder="Rechercher une chose">
+            <button type="submit">Rechercher</button>
+        </form>
 
         <table class="table">
             <thead>
