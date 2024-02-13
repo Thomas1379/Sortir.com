@@ -3,9 +3,11 @@
 {% block title %}Edit Sortie{% endblock %}
 
 {% block body %}
+<div class="new_Sortie">
     <h1>Edit Sortie</h1>
 
     {{ include('sortie/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_sortie_index') }}">back to list</a>
+</div>
 {% endblock %}

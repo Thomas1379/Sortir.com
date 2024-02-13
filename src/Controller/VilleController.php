@@ -21,85 +21,98 @@ class VilleController extends AbstractController
         VilleRepository $villeRepository
     ): Response
     {
+        // Recherche d'une ville (par nom ou code postal)
+       $searchTerm = $request->query->get('search', '');
+
+        if ($searchTerm != '') {
+            $villes = $villeRepository->searchByNomOrCodePostal($searchTerm);;
+        } else {
+            $villes = $villeRepository->findAll();
+        }
+
+        // Création d'une nouvelle ville
         $ville = new Ville();
         $villeForm = $this->createForm(VilleType::class, $ville);
-
         $villeForm->handleRequest($request);
 
+        /*
+         * // Vérifier si une ville avec le même nom et code postal existe déjà
+        $nom = $request->request->getString('nom');
+        $codePostal = $request->request->getString('codePostal');
+        $existingVille = $villeRepository->findByNomAndCodePostal($nom, $codePostal);
+        if ($existingVille == $ville) {
+            $this->addFlash('error', 'Une ville avec ce nom et ce code postal existe déjà.');
+        } else {
+         */
+        // Enregistrement dans la bdd si rempli et validé
         if ($villeForm->isSubmitted() && $villeForm->isValid()) {
+
+
+
             $entityManager->persist($ville);
             $entityManager->flush();
 
+            // Affichage du message "succes" en cas de validation
             $this->addFlash('success', $ville->getNom() . " a bien été créée !");
             return $this->redirectToRoute('app_ville_index');
         }
 
+        // Affichage de la liste des villes créées et du formulaire de création
         return $this->render('ville/index.html.twig', [
-            'villes' => $villeRepository->findAll(),
-            'villeForm' => $villeForm
-        ]);
-    }
+            'searchTerm' => $searchTerm,
+            'villes' => $villes,
+            'villeForm' => $villeForm,
+         ]);
 
-    #[Route('/new', name: 'app_ville_new')]
-    public function new(
+}
+
+    #[Route('/{id}/edit', name: 'app_ville_edit', methods: ['GET', 'POST'])]
+    public function edit(
         Request $request,
+        Ville $ville,
         EntityManagerInterface $entityManager
     ): Response
     {
-        $ville = new Ville();
-        $villeForm = $this->createForm(VilleType::class, $ville);
-
-        $villeForm->handleRequest($request);
-
-        if ($villeForm->isSubmitted() && $villeForm->isValid()) {
-            $entityManager->persist($ville);
-            $entityManager->flush();
-
-            $this->addFlash('success', $ville->getNom() . " a bien été créée !");
-            return $this->redirectToRoute('app_ville_index');
-        }
-
-        return $this->render('ville/new.html.twig', [
-            'villeForm' => $villeForm
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_ville_show', methods: ['GET'])]
-    public function show(Ville $ville): Response
-    {
-        return $this->render('ville/show.html.twig', [
-            'ville' => $ville,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_ville_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Ville $ville, EntityManagerInterface $entityManager): Response
-    {
+        // Modification d'une ville (nom ou code postal)
         $form = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            // Retour à la liste des villes après modification
             return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Affichage de la liste des villes, avec la ville modifié (et toujours du formulaire de création)
         return $this->render('ville/edit.html.twig', [
             'ville' => $ville,
             'villeForm' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_ville_delete', methods: ['POST'])]
-    public function delete(Request $request, Ville $ville, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'app_ville_delete', methods: ['GET', 'POST'])]
+    public function delete(
+        Request $request,
+        Ville $ville,
+        EntityManagerInterface $entityManager
+    ): Response
     {
+        // Suppression d'une ville
         if ($this->isCsrfTokenValid('delete'.$ville->getId(), $request->request->get('_token'))) {
             $entityManager->remove($ville);
             $entityManager->flush();
+
+            return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
+        return $this->render('ville/_delete_form.html.twig', [
+            'ville' => $ville,
+        ]);
     }
+
+
+
 
 
 }
