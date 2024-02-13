@@ -11,12 +11,12 @@ a {
 header {
   width: 100%;
   height: 10vh;
-  background-color: lightcoral;
+  background-color: darkgrey;
 }
 footer {
   width: 100%;
   height: 10vh;
-  background-color: cornflowerblue;
+  background-color: darkgrey;
 }
 .container {
   width: 100%;
@@ -35,16 +35,44 @@ img {
 }
 
 .index_Ville {
-  border: 1px solid #ddd;
-  padding: 20px;
-  .actions {
-    a {
-      color: #777;
-      border: 1px solid #ddd;
-      padding: 5px 10px;
-      border-radius: 5px;
-      &:hover {
-        background-color: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  table {
+    table-layout: fixed;
+
+    thead {
+      justify-content: center;
+      align-items: center;
+      background-color: #333;
+      color: #FDFDFD;
+      tr {
+        display: block;
+        position: relative;
+        th {
+          width: 100px;
+          text-decoration: underline;
+          padding: 5px;
+          text-align: center;
+        }
+      }
+    }
+    tbody {
+      display: block;
+      overflow: auto;
+      width: 100%;
+      tr {
+        &:nth-child(even) {
+          background-color: #DDD;
+        }
+        td {
+          border: 1px black solid;
+          width: 100px;
+          padding: 5px;
+          text-align: center;
+        }
       }
     }
   }

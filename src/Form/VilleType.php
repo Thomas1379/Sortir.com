@@ -17,7 +17,7 @@ class VilleType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class,
-                ['label'=>'Nom de la ville',
+                ['label'=>false,
                     'constraints' => [
                         new Regex([
                             'pattern' => '/^[a-zA-Z]+$/',
@@ -26,7 +26,8 @@ class VilleType extends AbstractType
                     ]
                 ])
             ->add('codePostal', TextType::class,
-                ['constraints' => [
+                ['label'=>false,
+                    'constraints' => [
                         new Regex([
                             'pattern' => '/^[0-9]{5}$/',
                             'message' => 'Le code postal ne doit contenir que 5 chiffres'

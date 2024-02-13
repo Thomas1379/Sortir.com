@@ -8,22 +8,23 @@ use App\Entity\Ville;
 use App\Form\SortieType;
 use App\Form\VilleType;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
-    public function index(SortieRepository $sortieRepository, Request $request): Response
+    public function index(SortieRepository $sortieRepository, Request $request, LieuRepository $lieuRepository): Response
     {
-
-
 
         $sortie = $sortieRepository->AllTables();
         //dd($sortie);
@@ -31,17 +32,25 @@ class SortieController extends AbstractController
     }
 
     #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
+    public function new(Request $request,
+                        EntityManagerInterface $entityManager,
+                        EtatRepository $etatRepository,
+                        LieuRepository $lieuRepository,
+                        VilleRepository $villeRepository): Response
     {
         $sortie = new Sortie();
         $sortie->setCampus($this->getUser()->getCampus());
         $sortie->setOrganisateur($this->getUser());
+
+        $villes = $villeRepository->getAllVille();
+
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $submited = $request->request->get('submit');
+            $lieu = $lieuRepository->findOneBy(['id' => $request->request->all('sortie')['lieu']]);
+            $sortie->setLieu($lieu);
 
             switch($submited) {
                 case"enregistrer":
@@ -67,20 +76,22 @@ class SortieController extends AbstractController
                 case"annuler":
                     {
                         $this->addFlash('success',"Votre sortie n'a pas été enregistrée");
-                        return $this->redirectToRoute('app_sortie_new');
+                        return $this->redirectToRoute('app_sortie_index');
                     }
             }
         }
 
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
-            'form' => $form
+            'villes' => $villes,
+            'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
     public function show(Sortie $sortie): Response
     {
+
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);
@@ -95,7 +106,7 @@ class SortieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            $this->addFlash('Success', '"' . $sortie->getNom() . '" à bien été modifier');
+            $this->addFlash('Success', '"' . $sortie->getNom() . '" a bien été modifiée');
             return $this->redirectToRoute('app_sortie_show', ['id' => $sortie->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -119,12 +130,18 @@ class SortieController extends AbstractController
     #[Route('/inscription/{id}', name: 'app_sortie_inscription', methods: ['GET'])]
     public function inscription(Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
+        $now = new \DateTime();
+        if( $sortie->getDateLimiteInscription()>$now) {
         $participant = $this->getUser();
         $sortie->addParticipant($participant);
         $entityManager->persist($sortie);
         $entityManager->flush();
+        $this->addFlash('Success', 'Votre inscription a bien été prise en compte');
 
-        $this->addFlash('Success', 'Votre inscription a bien était prise en compte');
+        }else
+        {
+            $this->addFlash('Fail', "La date d'inscription est dépassée");
+        }
         return $this->redirectToRoute('app_sortie_index', [
             'sorties' => $sortie
         ]);
@@ -132,16 +149,24 @@ class SortieController extends AbstractController
     #[Route('/seDesister/{id}', name: 'app_sortie_seDesister', methods: ['GET'])]
     public function seDesister(Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
+        $now = new \DateTime();
+        if( $sortie->getDateHeureDebut()>$now) {
         $participant = $this->getUser();
         $sortie->removeParticipant($participant);
         $entityManager->persist($sortie);
         $entityManager->flush();
 
         $this->addFlash('Success', 'Vous venez de vous désinscrire de la sortie : ' . $sortie->getNom());
+
+        }
+        else{
+            $this->addFlash('Fail', "trop tard ! La date de la sortie est dépassée");
+                }
         return $this->redirectToRoute('app_sortie_index', [
             'sorties' => $sortie
-        ]);
-    }
+            ]);
+        }
+
     #[Route('/publier/{id}', name: 'app_sortie_publier', methods: ['GET'])]
     public function publier(Sortie $sortie, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
@@ -150,9 +175,10 @@ class SortieController extends AbstractController
         $entityManager->persist($sortie);
         $entityManager->flush();
 
-        $this->addFlash('Success', 'Votre sortie "' . $sortie->getNom() . '" à bien était publier');
+        $this->addFlash('Success', 'Votre sortie "' . $sortie->getNom() . '" a bien été publiée');
         return $this->redirectToRoute('app_sortie_index', [
             'sorties' => $sortie
         ]);
     }
+
 }

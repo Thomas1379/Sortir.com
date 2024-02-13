@@ -4,13 +4,29 @@
 
 {% block body %}
     <div class="register">
-        <h1>Register</h1>
+        <h1>Créer un profil</h1>
 
         {{ form_errors(registrationForm) }}
 
         {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.pseudo) }}
+        {{ form_row(registrationForm.prenom) }}
+        {{ form_row(registrationForm.nom) }}
+        {{ form_row(registrationForm.telephone) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {# {{ form_row(registrationForm.confirmPassword) }} #}
+        {{ form_row(registrationForm.campus) }}
+        {# {{ form_row(registrationForm.photo) }} #}
+        <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+        <button class="btn"><a href="{{ path('app_participant_index') }}">Annuler</a></button>
+
+        {{ form_end(registrationForm) }}
+
+{# {{ form_start(registrationForm) }}
         {{ form_widget(registrationForm) }}
         <button type="submit" class="btn">Register</button>
-        {{ form_end(registrationForm) }}
+        {{ form_end(registrationForm) }} #}
+
     </div>
 {% endblock %}
