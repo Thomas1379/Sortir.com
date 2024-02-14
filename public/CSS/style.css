@@ -263,7 +263,7 @@ img {
   display: block;
   overflow: auto;
   width: 100%;
-  height: 300px;
+  height: 500px;
 }
 .index_Sortie .table tbody tr:nth-child(even) {
   background-color: #DDD;
