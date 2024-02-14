@@ -12,7 +12,10 @@
                 <div>
                     <label for="campus">Campus</label>
                     <select name="campus" id="campus">
-                        <option value="">Campus1</option>
+                        <option hidden="hidden">Choisissez un campus</option>
+                        {% for campus in campuses %}
+                            <option value="{{ campus.id }}">{{ campus.nom }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div>
@@ -25,15 +28,17 @@
                 </div>
             </div>
             <div class="div2">
-                <input type="checkbox" name="orga" id="orga"> Sorties dont je suis l'organisateur/trice
+                <input type="checkbox" name="orga" id="orga" value="{{ app.user.id }}" checked> Sorties dont je suis l'organisateur/trice
                 <br>
-                <input type="checkbox" name="inscrit" id="inscrit"> Sorties auxquelles je suis inscrit/e
+                <input type="checkbox" name="inscrit" id="inscrit" value="{{ app.user.id }}"> Sorties auxquelles je suis inscrit/e
                 <br>
-                <input type="checkbox" name="noinscrit" id="noinscrit"> Sorties auxquelles je ne suis pas inscrit/e
+                <input type="checkbox" name="noinscrit" id="noinscrit" value="{{ app.user.id }}"> Sorties auxquelles je ne suis pas inscrit/e
                 <br>
                 <input type="checkbox" name="passe" id="passe"> Sorties passées
             </div>
-            <button class="submit" type="submit">Rechercher</button>
+            <div class="submit_div">
+                <button class="submit" type="submit">Rechercher</button>
+            </div>
         </form>
 
         <table class="table">

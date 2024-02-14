@@ -192,7 +192,7 @@ img {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-row-gap: 0px;
 }
 .index_Sortie .search .div1 {
   grid-area: 1/1/2/2;
@@ -226,8 +226,15 @@ img {
 .index_Sortie .search .div2 {
   grid-area: 1/2/2/3;
 }
-.index_Sortie .search .submit {
+.index_Sortie .search .submit_div {
   grid-area: 2/1/3/3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.index_Sortie .search .submit_div .submit {
+  padding: 10px 20px;
+  text-align: center;
 }
 .index_Sortie .search br {
   content: "";

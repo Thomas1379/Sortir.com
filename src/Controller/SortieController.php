@@ -5,9 +5,9 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Entity\Ville;
-use App\Form\SearchType;
 use App\Form\SortieType;
 use App\Form\VilleType;
+use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
@@ -20,28 +20,36 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use function PHPUnit\Framework\isEmpty;
 use Symfony\Component\Validator\Constraints\DateTime;
+use function Symfony\Component\Clock\now;
 
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
 
     #[Route('/', name: 'app_sortie_index', methods: ['GET', 'POST'])]
-    public function index(SortieRepository $sortieRepository, Request $request): Response
+    public function index(SortieRepository $sortieRepository, Request $request, CampusRepository $campusRepository): Response
     {
         $search = $request->query->all();
-        dump($request->query->all());
-        dump(count($search));
-        dump(empty($search));
+        dump($search);
 
         if(count($search) > 0) {
+
+            if($search['date1'] == ''){
+                $search['date1'] = new DateTime('string', mktime(0,0,0,1,1,2024));
+            }
+
+            //dd($search);
+
             $sorties = $sortieRepository->searchByName($search);
         } else {
-            dump('else');
             $sorties = $sortieRepository->allTables();
         }
 
+        $campus = $campusRepository->findAll();
+
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sorties,
+            'campuses' => $campus
         ]);
     }
 

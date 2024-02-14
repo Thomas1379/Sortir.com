@@ -44,9 +44,6 @@ class SortieRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('s');
 
-        $queryBuilder->where('s.nom LIKE :search');
-        $queryBuilder->setParameter('search', '%' . $search['search'] . '%');
-
         $queryBuilder->addOrderBy('s.nom', 'ASC');
         $queryBuilder->join('s.organisateur', 'orga');
         $queryBuilder->join('s.Etat', 'etat');
@@ -54,6 +51,18 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder->addSelect('orga');
         $queryBuilder->addSelect('etat');
         $queryBuilder->addSelect('part');
+
+        $queryBuilder->andWhere('s.Campus = :campus');
+        $queryBuilder->setParameter('campus', $search['campus']);
+
+        $queryBuilder->andWhere('s.nom LIKE :search');
+        $queryBuilder->setParameter('search', '%' . $search['search'] . '%');
+
+        $queryBuilder->andWhere('s.dateHeureDebut BETWEEN :date1 AND :date2');
+        $queryBuilder->setParameter('date1', $search['date1']);
+        $queryBuilder->setParameter('date2', $search['date2']);
+
+
 
         $query = $queryBuilder->getQuery();
         $query->setMaxResults(20);
