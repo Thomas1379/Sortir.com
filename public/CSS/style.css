@@ -31,6 +31,86 @@ img {
   margin: 0 auto;
 }
 
+.index_Participant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.index_Participant table {
+  table-layout: fixed;
+}
+.index_Participant table thead {
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  color: #FDFDFD;
+}
+.index_Participant table thead tr {
+  display: block;
+  position: relative;
+}
+.index_Participant table thead tr th {
+  width: 100px;
+  text-decoration: underline;
+  padding: 5px;
+  text-align: center;
+}
+.index_Participant table tbody {
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+.index_Participant table tbody tr:nth-child(even) {
+  background-color: #DDD;
+}
+.index_Participant table tbody tr td {
+  border: 1px black solid;
+  width: 100px;
+  padding: 5px;
+  text-align: center;
+}
+
+.show_Participant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.show_Participant table {
+  table-layout: fixed;
+}
+.show_Participant table thead {
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  color: #FDFDFD;
+}
+.show_Participant table thead tr {
+  display: block;
+  position: relative;
+}
+.show_Participant table thead tr th {
+  width: 100px;
+  text-decoration: underline;
+  padding: 5px;
+  text-align: center;
+}
+.show_Participant table tbody {
+  display: block;
+  overflow: auto;
+  width: 100%;
+  border: 1px black solid;
+}
+.show_Participant table tbody tr:nth-child(even) {
+  background-color: #DDD;
+}
+.show_Participant table tbody tr td {
+  width: 100px;
+  padding: 5px;
+  text-align: center;
+}
+
 .index_Ville {
   display: flex;
   justify-content: center;
@@ -55,6 +135,7 @@ img {
   text-decoration: underline;
   padding: 5px;
   text-align: center;
+  border: 1px black solid;
 }
 .index_Ville table tbody {
   display: block;

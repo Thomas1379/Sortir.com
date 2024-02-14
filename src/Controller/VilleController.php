@@ -32,37 +32,39 @@ class VilleController extends AbstractController
 
         // Création d'une nouvelle ville
         $ville = new Ville();
+
+        /*// Vérifier si une ville avec le même nom et code postal existe déjà
+        $villeSaisie = ['nom' => $request->request->get,'codePostal' => $request->request->getString('codePostal')];
+        $villeExiste = $villeRepository->findBy($villeSaisie,);
+        if ($villeExiste != $villeSaisie) {
+            $villeSaisie = $ville;
+dump(' ville: ',$ville, ' villeSaisie: ', $villeSaisie, ' villeExiste :', $villeSaisie);*/
         $villeForm = $this->createForm(VilleType::class, $ville);
+
         $villeForm->handleRequest($request);
 
-        /*
-         * // Vérifier si une ville avec le même nom et code postal existe déjà
-        $nom = $request->request->getString('nom');
-        $codePostal = $request->request->getString('codePostal');
-        $existingVille = $villeRepository->findByNomAndCodePostal($nom, $codePostal);
-        if ($existingVille == $ville) {
+
+
+            // Enregistrement dans la bdd si rempli et validé
+                if ($villeForm->isSubmitted() && $villeForm->isValid()) {
+
+                    $entityManager->persist($ville);
+                    $entityManager->flush();
+
+                    // Affichage du message "succes" en cas de validation
+                    $this->addFlash('success', $ville->getNom() . " a bien été créée !");
+                    return $this->redirectToRoute('app_ville_index');
+                }
+       /* } else {
             $this->addFlash('error', 'Une ville avec ce nom et ce code postal existe déjà.');
-        } else {
-         */
-        // Enregistrement dans la bdd si rempli et validé
-        if ($villeForm->isSubmitted() && $villeForm->isValid()) {
+        }*/
 
-
-
-            $entityManager->persist($ville);
-            $entityManager->flush();
-
-            // Affichage du message "succes" en cas de validation
-            $this->addFlash('success', $ville->getNom() . " a bien été créée !");
-            return $this->redirectToRoute('app_ville_index');
-        }
-
-        // Affichage de la liste des villes créées et du formulaire de création
-        return $this->render('ville/index.html.twig', [
-            'searchTerm' => $searchTerm,
-            'villes' => $villes,
-            'villeForm' => $villeForm,
-         ]);
+            // Affichage de la liste des villes créées et du formulaire de création
+            return $this->render('ville/index.html.twig', [
+                'searchTerm' => $searchTerm,
+                'villes' => $villes,
+                'villeForm' => $villeForm,
+            ]);
 
 }
 
