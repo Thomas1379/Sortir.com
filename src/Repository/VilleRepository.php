@@ -43,10 +43,4 @@ class VilleRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
-    // Recherche si une ville (avec le même nom et le même code postal) existe déjà
-   /* public function findByNomAndCodePostal(string $nom, string $codePostal): ?Ville
-    {
-        return $this->findOneBy(['nom' => $nom, 'codePostal' => $codePostal]);
-    }*/
-
 }

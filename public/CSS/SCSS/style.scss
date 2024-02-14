@@ -33,6 +33,95 @@ img {
   margin: 0 auto;
 }
 
+.index_Participant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  table {
+    table-layout: fixed;
+
+    thead {
+      justify-content: center;
+      align-items: center;
+      background-color: #333;
+      color: #FDFDFD;
+      tr {
+        display: block;
+        position: relative;
+        th {
+          width: 100px;
+          text-decoration: underline;
+          padding: 5px;
+          text-align: center;
+        }
+      }
+    }
+    tbody {
+      display: block;
+      overflow: auto;
+      width: 100%;
+      tr {
+        &:nth-child(even) {
+          background-color: #DDD;
+        }
+        td {
+          border: 1px black solid;
+          width: 100px;
+          padding: 5px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+.show_Participant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  table {
+    table-layout: fixed;
+
+    thead {
+      justify-content: center;
+      align-items: center;
+      background-color: #333;
+      color: #FDFDFD;
+      tr {
+        display: block;
+        position: relative;
+        th {
+          width: 100px;
+          text-decoration: underline;
+          padding: 5px;
+          text-align: center;
+        }
+      }
+    }
+    tbody {
+      display: block;
+      overflow: auto;
+      width: 100%;
+      border: 1px black solid;
+      tr {
+        &:nth-child(even) {
+          background-color: #DDD;
+        }
+        td {
+
+          width: 100px;
+          padding: 5px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
 .index_Ville {
   display: flex;
   justify-content: center;
@@ -55,6 +144,7 @@ img {
           text-decoration: underline;
           padding: 5px;
           text-align: center;
+          border: 1px black solid;
         }
       }
     }

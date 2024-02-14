@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\Campus;
 use App\Entity\Participant;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,10 +21,11 @@ class ParticipantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pseudo', TextType::class)
-            ->add('prenom', TextType::class)
-            ->add('nom', TextType::class)
+            ->add('pseudo', TextType::class,['label'=> 'Pseudo : '])
+            ->add('prenom', TextType::class,['label'=> 'Prénom : '])
+            ->add('nom', TextType::class,['label'=> 'Nom : '])
             ->add('telephone', TextType::class, [
+                'label'=> 'Téléphone : ',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Votre numéro ne peut pas être vide',
@@ -34,10 +37,14 @@ class ParticipantType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('email', TextType::class)
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+            ->add('email', TextType::class,['label'=> 'Email : '])
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les deux mots de passe doivent être identiques',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => ['label' => 'Mot de passe : '],
+                'second_options' => ['label' => 'Confirmer votre mot de passe : '],
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'label' => 'Password',
@@ -54,11 +61,14 @@ class ParticipantType extends AbstractType
                 ],
             ])
             ->add('campus', EntityType::class, [
+                'label'=> 'Choississez votre Campus : ',
                 'class' => Campus::class,
                 'choice_label' => 'nom',
             ])
-
-            /*TODO Upload Photo*/
+            ->add('photo', FileType::class, [
+                'required' => false,
+                 'mapped' => false,
+            ])
 
             /*->add('roles', ChoiceType::class, [
                 'choices'  => [
