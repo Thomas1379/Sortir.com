@@ -33,21 +33,20 @@ class VilleController extends AbstractController
         // Création d'une nouvelle ville
         $ville = new Ville();
 
-        /*// Vérifier si une ville avec le même nom et code postal existe déjà
-        $villeSaisie = ['nom' => $request->request->get,'codePostal' => $request->request->getString('codePostal')];
-        $villeExiste = $villeRepository->findBy($villeSaisie,);
-        if ($villeExiste != $villeSaisie) {
-            $villeSaisie = $ville;
-dump(' ville: ',$ville, ' villeSaisie: ', $villeSaisie, ' villeExiste :', $villeSaisie);*/
         $villeForm = $this->createForm(VilleType::class, $ville);
 
         $villeForm->handleRequest($request);
 
-
-
             // Enregistrement dans la bdd si rempli et validé
                 if ($villeForm->isSubmitted() && $villeForm->isValid()) {
 
+                    $allVilles = $villeRepository->findAll();
+                    foreach ($allVilles as $allVille) {
+                        if ($allVille->getNom() == $ville->getNom() && $allVille->getCodePostal() == $ville->getCodePostal()) {
+                            $this->addFlash('fail', "votre ville existe deja ");
+                            return $this->redirectToRoute('app_ville_index');
+                        }
+                    }
                     $entityManager->persist($ville);
                     $entityManager->flush();
 
@@ -55,9 +54,6 @@ dump(' ville: ',$ville, ' villeSaisie: ', $villeSaisie, ' villeExiste :', $ville
                     $this->addFlash('success', $ville->getNom() . " a bien été créée !");
                     return $this->redirectToRoute('app_ville_index');
                 }
-       /* } else {
-            $this->addFlash('error', 'Une ville avec ce nom et ce code postal existe déjà.');
-        }*/
 
             // Affichage de la liste des villes créées et du formulaire de création
             return $this->render('ville/index.html.twig', [
@@ -112,9 +108,5 @@ dump(' ville: ',$ville, ' villeSaisie: ', $villeSaisie, ' villeExiste :', $ville
             'ville' => $ville,
         ]);
     }
-
-
-
-
 
 }
