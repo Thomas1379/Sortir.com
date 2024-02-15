@@ -12,28 +12,44 @@
                 <div>
                     <label for="campus">Campus</label>
                     <select name="campus" id="campus">
-                        <option value="">Campus1</option>
+                        <option disabled>Choisissez un campus</option>
+                        <option value="ANY">Tout les campus</option>
+                        {% for campus in campuses %}
+                            {% if campus.id == search['campus'] %}
+                                <option value="{{ campus.id }}" selected>{{ campus.nom }}</option>
+                                {% else %}
+                                    <option value="{{ campus.id }}">{{ campus.nom }}</option>
+                            {% endif %}
+                        {% endfor %}
                     </select>
                 </div>
                 <div>
                     <label for="search">Le nom de la sortie contient :</label>
-                    <input type="text" name="search" id="search" placeholder="Rechercher une sortie">
+                    <input type="text" name="search" id="search" placeholder="Rechercher une sortie" value="{{ search['search'] }}">
                 </div>
                 <div>
-                    Entre <input type="date" name="date1" id="date1">
-                    et <input type="date" name="date2" id="date2">
+                    <label for="date1">Entre </label>
+                    <input type="date" name="date1" id="date1" value="{{ search['date1'] }}">
+                    <label for="date2">et </label>
+                    <input type="date" name="date2" id="date2" value="{{ search['date2'] }}">
                 </div>
             </div>
             <div class="div2">
-                <input type="checkbox" name="orga" id="orga"> Sorties dont je suis l'organisateur/trice
+                <input type="checkbox" name="orga" id="orga" value="{{ app.user.id }}" {% if search['orga'] is defined %}checked{% endif %}>
+                <label for="orga">Sorties dont je suis l'organisateur/trice</label>
                 <br>
-                <input type="checkbox" name="inscrit" id="inscrit"> Sorties auxquelles je suis inscrit/e
+                <input type="checkbox" name="inscrit" id="inscrit" value="{{ app.user.id }}" {% if search['inscrit'] is defined %}checked{% endif %}>
+                <label for="inscrit">Sorties auxquelles je suis inscrit/e</label>
                 <br>
-                <input type="checkbox" name="noinscrit" id="noinscrit"> Sorties auxquelles je ne suis pas inscrit/e
+                <input type="checkbox" name="noinscrit" id="noinscrit" value="{{ app.user.id }}" {% if search['noinscrit'] is defined %}checked{% endif %}>
+                <label for="noinscrit">Sorties auxquelles je ne suis pas inscrit/e</label>
                 <br>
-                <input type="checkbox" name="passe" id="passe"> Sorties passées
+                <input type="checkbox" name="passe" id="passe" value="true" {% if search['passe'] is defined %}checked{% endif %}>
+                <label for="passe">Sorties passées</label>
             </div>
-            <button class="submit" type="submit">Rechercher</button>
+            <div class="submit_div">
+                <button class="submit" type="submit">Rechercher</button>
+            </div>
         </form>
 
         <table class="table">
@@ -51,14 +67,16 @@
                 </tr>
             </thead>
             <tbody>
-                {% for sortie in sorties %}
+                {% for sortie in pagination %}
                     {% if sortie.Etat.libelle == 'En Création' and sortie.organisateur.id != app.user.id %}
 
                     {% else %}
                         <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{ sortie.nom }}</td>
-                            <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ ((pagination.currentPageNumber - 1) * pagination.itemNumberPerPage + loop.index)|number_format(0, '.', ',') }}</td>
+                            <td>{{ sortie.nom }} {% if search['campus'] is same as('ANY') %}
+                                    ({{ sortie.campus.nom }})
+                                {% endif %}</td>
+                            <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }} ({{ sortie.duree }} minutes)</td>
                             <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</td>
                             <td>{{ sortie.Participant|length }}/{{ sortie.nbInscriptionsMax }}</td>
                             <td>{{ sortie.Etat.libelle }}</td>
@@ -86,7 +104,7 @@
                                         {% if sortie.organisateur.id == app.user.id %}
                                             <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">Afficher</a>
                                             -
-                                            <a href="{{ path('app_sortie_inscription', {'id': sortie.id}) }}">Annuler</a>
+                                            <a href="#" onclick="showCancelPopup('{{ path('app_sortie_annuler', {'id': sortie.id}) }}')">Annuler la sortie</a>
                                         {% else %}
                                             <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">Afficher</a>
                                             -
@@ -123,12 +141,30 @@
                     {% endif %}
                 {% else %}
                     <tr>
-                        <td colspan="9">no records found</td>
+                        <td colspan="6">no records found</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
 
         <a href="{{ path('app_sortie_new') }}">Create new</a>
     </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function showCancelPopup(path) {
+            var reason = prompt("Veuillez indiquer la raison de l'annulation :");
+            if (reason !== null) {
+                // L'utilisateur a cliqué sur OK et a fourni une raison
+                // Redirigez-le vers le contrôleur pour traiter l'annulation avec la raison
+                window.location.href = path + "?reason=" + encodeURIComponent(reason);
+            } else {
+                window.location.href = path + "?reason=" + encodeURIComponent("Aucune raison");
+            }
+        }
+    </script>
 {% endblock %}
