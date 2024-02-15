@@ -21,13 +21,18 @@ class CampusController extends AbstractController
         CampusRepository $campusRepository
     ): Response
     {
+//        rechercher vers la base de donnees
+
+
+
+
         $campus = new Campus();
         $campusForm = $this->createForm(CampusType::class, $campus);
 
         $campusForm->handleRequest($request);
 
         if ($campusForm->isSubmitted() && $campusForm->isValid()) {
-            dd($campus);
+
             $entityManager->persist($campus);
             $entityManager->flush();
 

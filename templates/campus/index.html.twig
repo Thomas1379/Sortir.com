@@ -3,10 +3,14 @@
 {% block title %}Campus index{% endblock %}
 
 {% block body %}
-    <div class="index_Campus">
-        <link rel="stylesheet" href="{{ asset('CSS/SCSS/style.scss') }}"/>
-    <h1>Campus index</h1>
+    <div class="index_campus">
 
+    <h1>Campus index</h1>
+        {#  Recherche d'un campus  #}
+        <form class="searchBar" method="get" action="{{ path('app_campus_index') }}">
+            <input type="text" id="search" name="search" placeholder="Rechercher un campus">
+            <button type="submit">Rechercher</button>
+            </form>
     <table class="table">
         <thead>
             <tr>
@@ -27,19 +31,10 @@
             </tr>
             {% if loop.last  %}
                 <tr>
-{#                    // Recherche de campus par nom ou CP
-                    {#$searchTerm=$request->query->get(key 'search', default'');
-                    if ($searchTerm !='') {
-                        $campus = $campusRepository->searchByNomOrCodePostal($searchTerm);
-                    }
-                    else {
-                        $campus = $campusRepository->findAll();
-                    }#}
 
-                    </form>
                     {{ form_start(campusForm) }}
                     <td>{{ form_row(campusForm.nom) }}</td>
-                    <td><button>Enregristrer</button></td>
+                    <td><button>Enregistrer</button></td>
                     {{ form_end(campusForm) }}
                 </tr>
             {% endif %}
