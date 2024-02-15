@@ -3,52 +3,50 @@
 {% block title %}Participant{% endblock %}
 
 {% block body %}
-    <h1>Participant</h1>
+    <div class="show_Participant">
+    <h1>{{ participant.pseudo }}</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ participant.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ participant.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ participant.roles ? participant.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ participant.password }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ participant.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ participant.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ participant.telephone }}</td>
-            </tr>
+        <tr>
+            <th>Photo</th>
+            <td><img style ="width: 80px; height: 80px" src="{{ asset('uploads/images/' ~ participant.imageFileName ) }}" alt="photo de profil"></td>
+        </tr>
+        <tr>
+            <th>Pseudo</th>
+            <td>{{ participant.pseudo }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ participant.nom }}</td>
+        </tr>
+        <tr>
+            <th>Prenom</th>
+            <td>{{ participant.prenom }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ participant.email }}</td>
+        </tr>
+        <tr>
+            <th>Telephone</th>
+            <td>{{ participant.telephone }}</td>
+        </tr>
+        {# <tr>
+            <th>Password</th>
+            <td>{{ participant.password }}</td>
+        </tr>
             <tr>
                 <th>Actif</th>
                 <td>{{ participant.actif ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Pseudo</th>
-                <td>{{ participant.pseudo }}</td>
-            </tr>
+            </tr> #}
         </tbody>
     </table>
 
-    <a href="{{ path('app_participant_index') }}">back to list</a>
+    <a href="{{ path('app_participant_index') }}">Liste des participants</a>
 
-    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>
+    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a>
 
     {{ include('participant/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

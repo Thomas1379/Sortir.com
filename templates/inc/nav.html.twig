@@ -1,9 +1,10 @@
 <nav>
     <ul>
-        <li><a href="{{ path('app_login') }}" title="login">Login</a></li>
-        <li><a href="{{ path('app_logout') }}" title="logout">logout</a></li>
-        <li><a href="{{ path('app_admin_register') }}" title="register">Register</a></li>
+        <li><a href="{{ path('app_ville_index') }}" title="index_ville">Villes</a></li>
+        {# <li><a href="{{ path('/admin/campus/') }}" title="index_campus">Campus</a></li> #}
+        <li><a href="{{ path('app_login') }}" title="login">Accueil</a></li>
+        <li><a href="{{ path('app_participant_new') }}" title="Mon profil">Mon profil</a></li>
+        <li><a href="{{ path('app_logout') }}" title="logout">Se déconnecter</a></li>
         <li><a href="{{ path('app_sortie_new') }}" title="create">Création de sorties</a></li>
-        <li><a href="{{ path('app_ville_index') }}" title="index">Gérer les villes</a></li>
     </ul>
 </nav>
