@@ -69,7 +69,6 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder->setParameter('date2', $search['date2']);
 
         if (!empty($search['orga'])) {
-            dump('test1');
             $queryBuilder->andWhere('s.organisateur = :orga');
             $queryBuilder->setParameter('orga', $search['orga']);
         }
@@ -156,7 +155,6 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if (!empty($search['passe'])) {
-            dump('test2');
             $queryBuilder->andWhere('s.dateHeureDebut < :currentDate');
             $queryBuilder->setParameter('currentDate', $currentDate->format('Y-m-d'));
         } else {

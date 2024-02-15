@@ -57,20 +57,6 @@ class SortieController extends AbstractController
         if (empty($search['date2'])) {
             $search['date2'] = date('Y').'-12-31';
         }
-        $user = $this->getUser();
-
-        if (empty($search['campus']) || $search['campus'] === 'Choisissez un campus') {
-            $search['campus'] = $user->getCampus()->getId();
-        }
-        if (empty($search['search'])) {
-            $search['search'] = '';
-        }
-        if (empty($search['date1'])) {
-            $search['date1'] = date('Y').'-01-01';
-        }
-        if (empty($search['date2'])) {
-            $search['date2'] = date('Y').'-12-31';
-        }
         // Créer un cookie avec la valeur de $search
         $cookie = new Cookie('search', json_encode($search), time() + (3600 * 24 * 30)); // Cookie valide pendant 30 jours
         // Ajouter le cookie à la réponse
@@ -79,28 +65,7 @@ class SortieController extends AbstractController
         $response->send();
         $sorties = $sortieRepository->searchByName($search);
         $campus = $campusRepository->findAll();
-                // Pagination
-        $pagination = $paginator->paginate(
-            $sorties,
-            $request->query->get('page', 1),
-            5
-        );
-
-        dump($pagination);
-        dump($search);
-        dump($user);
-
-        // Créer un cookie avec la valeur de $search
-        $cookie = new Cookie('search', json_encode($search), time() + (3600 * 24 * 30)); // Cookie valide pendant 30 jours
-
-        // Ajouter le cookie à la réponse
-        $response = new Response();
-        $response->headers->setCookie($cookie);
-        $response->send();
-
-        $sorties = $sortieRepository->searchByName($search);
-        $campus = $campusRepository->findAll();
-
+        
         // Pagination
         $pagination = $paginator->paginate(
             $sorties,
