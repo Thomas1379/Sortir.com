@@ -87,7 +87,7 @@
                                     {% endif %}
                                 {% endfor %}
                             </td>
-                            <td><a href="#">{{ sortie.organisateur.pseudo }}</a></td>
+                            <td><a href="{{ path('app_participant_show', {'id': sortie.organisateur.id }) }}">{{ sortie.organisateur.pseudo }}</a></td>
                             <td>
                                 {% if sortie.Etat.libelle == 'Ouvert' %}
                                     {% for participant in sortie.Participant %}

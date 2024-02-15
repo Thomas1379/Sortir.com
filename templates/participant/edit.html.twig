@@ -10,5 +10,6 @@
     <td><button class="btn" type="submit" name="submit">Enregistrer</button></td>
     {{ form_end(participantForm) }}
 
-    <a href="{{ path('app_participant_index') }}">Liste des participants</a>
+{#    Ce lien ne doit être accessible que pour l'admin (VQ)
+    <a href="{{ path('app_participant_index') }}">Liste des participants</a>#}
 {% endblock %}

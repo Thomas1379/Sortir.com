@@ -81,7 +81,9 @@ class ParticipantController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_participant_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Participant $participant, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request,
+                         Participant $participant,
+                         EntityManagerInterface $entityManager): Response
     {
         $participantForm = $this->createForm(ParticipantType::class, $participant);
         $participantForm->handleRequest($request);
