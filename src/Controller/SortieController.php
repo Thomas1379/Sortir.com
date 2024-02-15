@@ -73,10 +73,6 @@ class SortieController extends AbstractController
             5
         );
 
-        dump($pagination);
-        dump($search);
-        dump($user);
-
         return $this->render('sortie/index.html.twig', [
             'campuses' => $campus,
             'search' => $search,
@@ -232,7 +228,7 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/inscription/{id}', name: 'app_sortie_inscription', methods: ['GET'])]
-    public function inscription(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    public function inscription(Sortie $sortie, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
         $now = new \DateTime();
 
@@ -244,10 +240,19 @@ class SortieController extends AbstractController
 
         if ($sortie->getNbInscriptionsMax() <= $sortie->getParticipant()->count()) {
             $this->addFlash('Fail', "La sortie est déjà pleine");
+            $sortie->setEtat($etatRepository->find(2));
+            $entityManager->persist($sortie);
+            $entityManager->flush();
         } else {
             if ($sortie->getDateLimiteInscription() < $now) {
                 $this->addFlash('Fail', "La date d'inscription est dépassée");
+                $sortie->setEtat($etatRepository->find(2));
+                $entityManager->persist($sortie);
+                $entityManager->flush();
             } else {
+                if ($sortie->getNbInscriptionsMax() <= count($sortie->getParticipant()) + 1) {
+                    $sortie->setEtat($etatRepository->find(2));
+                }
                 $participant = $this->getUser();
                 $sortie->addParticipant($participant);
                 $entityManager->persist($sortie);
@@ -258,21 +263,26 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('app_sortie_index');
     }
     #[Route('/seDesister/{id}', name: 'app_sortie_seDesister', methods: ['GET'])]
-    public function seDesister(Sortie $sortie, EntityManagerInterface $entityManager): Response
+    public function seDesister(Sortie $sortie, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
         $now = new \DateTime();
         if( $sortie->getDateHeureDebut()>$now) {
-        $participant = $this->getUser();
-        $sortie->removeParticipant($participant);
-        $entityManager->persist($sortie);
-        $entityManager->flush();
+            if ($sortie->getNbInscriptionsMax() > count($sortie->getParticipant()) - 1) {
+                $sortie->setEtat($etatRepository->find(1));
+            }
+            $participant = $this->getUser();
+            $sortie->removeParticipant($participant);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
 
-        $this->addFlash('Success', 'Vous venez de vous désinscrire de la sortie : ' . $sortie->getNom());
-
+            $this->addFlash('Success', 'Vous venez de vous désinscrire de la sortie : ' . $sortie->getNom());
         }
         else{
             $this->addFlash('Fail', "trop tard ! La date de la sortie est dépassée");
-                }
+            $sortie->setEtat($etatRepository->find(2));
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute('app_sortie_index');
         }
 
