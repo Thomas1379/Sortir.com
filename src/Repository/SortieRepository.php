@@ -6,6 +6,7 @@ use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\SecurityBundle\Security;
 use function Symfony\Component\String\s;
 
 /**
@@ -18,9 +19,10 @@ use function Symfony\Component\String\s;
  */
 class SortieRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, Security $security)
     {
         parent::__construct($registry, Sortie::class);
+        $this->security = $security;
     }
 
     public function allTables()
@@ -44,10 +46,11 @@ class SortieRepository extends ServiceEntityRepository
     {
         $currentDate = new \DateTime();
         $currentDate->setTime(0, 0, 0);
+        $user = $this->security->getUser();
 
         $queryBuilder = $this->createQueryBuilder('s');
 
-        $queryBuilder->addOrderBy('s.nom', 'ASC');
+        $queryBuilder->addOrderBy('s.dateHeureDebut', 'ASC');
         $queryBuilder->join('s.organisateur', 'orga');
         $queryBuilder->join('s.Etat', 'etat');
         $queryBuilder->LeftJoin('s.Participant', 'part');
@@ -68,8 +71,18 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder->setParameter('date2', $search['date2']);
 
         if (!empty($search['orga'])) {
+            dump('test1');
             $queryBuilder->andWhere('s.organisateur = :orga');
             $queryBuilder->setParameter('orga', $search['orga']);
+        }
+        else {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->orX(
+                    's.Etat != 4',
+                    's.organisateur = :user'
+                )
+            );
+            $queryBuilder->setParameter('user', $user);
         }
 
         if (!empty($search['inscrit']) && !empty($search['noinscrit'])) {
@@ -90,16 +103,18 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if (!empty($search['passe'])) {
+            dump('test2');
             $queryBuilder->andWhere('s.dateHeureDebut < :currentDate');
+            $queryBuilder->setParameter('currentDate', $currentDate->format('Y-m-d'));
+        } else {
+            $queryBuilder->andWhere('s.dateHeureDebut > :currentDate');
             $queryBuilder->setParameter('currentDate', $currentDate->format('Y-m-d'));
         }
 
 
 
         $query = $queryBuilder->getQuery();
-        $query->setMaxResults(20);
-        $results = $query->getResult();
-        return $results;
+        $query->setMaxResults(50);
+        return $query;
     }
-
 }

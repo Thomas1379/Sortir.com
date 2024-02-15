@@ -67,16 +67,16 @@
                 </tr>
             </thead>
             <tbody>
-                {% for sortie in sorties %}
+                {% for sortie in pagination %}
                     {% if sortie.Etat.libelle == 'En Création' and sortie.organisateur.id != app.user.id %}
 
                     {% else %}
                         <tr>
-                            <td>{{ loop.index }}</td>
+                            <td>{{ ((pagination.currentPageNumber - 1) * pagination.itemNumberPerPage + loop.index)|number_format(0, '.', ',') }}</td>
                             <td>{{ sortie.nom }} {% if search['campus'] is same as('ANY') %}
                                     ({{ sortie.campus.nom }})
                                 {% endif %}</td>
-                            <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }} ({{ sortie.duree }} minutes)</td>
                             <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</td>
                             <td>{{ sortie.Participant|length }}/{{ sortie.nbInscriptionsMax }}</td>
                             <td>{{ sortie.Etat.libelle }}</td>
@@ -146,6 +146,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
 
         <a href="{{ path('app_sortie_new') }}">Create new</a>
     </div>
@@ -159,6 +162,8 @@
                 // L'utilisateur a cliqué sur OK et a fourni une raison
                 // Redirigez-le vers le contrôleur pour traiter l'annulation avec la raison
                 window.location.href = path + "?reason=" + encodeURIComponent(reason);
+            } else {
+                window.location.href = path + "?reason=" + encodeURIComponent("Aucune raison");
             }
         }
     </script>

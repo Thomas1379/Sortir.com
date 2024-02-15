@@ -14,6 +14,7 @@ use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'app_sortie_index', methods: ['GET', 'POST'])]
-    public function index(SortieRepository $sortieRepository, Request $request, CampusRepository $campusRepository): Response
+    public function index(SortieRepository $sortieRepository, Request $request, CampusRepository $campusRepository, PaginatorInterface $paginator): Response
     {
         $search = $request->query->all();
 
@@ -43,8 +44,6 @@ class SortieController extends AbstractController
                 $search = json_decode($searchCookie, true);
             }
         }
-
-        dump($search);
         $user = $this->getUser();
 
         if (empty($search['campus']) || $search['campus'] === 'Choisissez un campus') {
@@ -71,10 +70,21 @@ class SortieController extends AbstractController
         $sorties = $sortieRepository->searchByName($search);
         $campus = $campusRepository->findAll();
 
+        // Pagination
+        $pagination = $paginator->paginate(
+            $sorties,
+            $request->query->get('page', 1),
+            5
+        );
+
+        dump($pagination);
+        dump($search);
+        dump($user);
+
         return $this->render('sortie/index.html.twig', [
-            'sorties' => $sorties,
             'campuses' => $campus,
-            'search' => $search
+            'search' => $search,
+            'pagination' => $pagination,
         ]);
     }
 
