@@ -4,10 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Form\ParticipantType;
-use App\Form\RegistrationFormType;
 use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -28,7 +28,8 @@ class ParticipantController extends AbstractController
     public function new(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        #[Autowire('%photo_dir%')] string $photoDir
     ): Response
     {
 
@@ -38,6 +39,11 @@ class ParticipantController extends AbstractController
         $participantForm->handleRequest($request);
 
         if ($participantForm->isSubmitted() && $participantForm->isValid()) {
+
+            //Pseudo par défaut (Prénom + 1ere lettre du Nom)
+            $user->setPseudo(
+                $user->getPrenom() . ' ' . substr($user->getNom(), 0, 1) . '.'
+            );
             // Haschage du password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -46,9 +52,13 @@ class ParticipantController extends AbstractController
                 )
             );
 
-            $user->setPseudo(
-                $user->getPrenom() . ' ' . substr($user->getNom(), 0, 1) . '.'
-            );
+            //Upload de la photo
+            if ($photo = $participantForm['photo']->getData()){
+                $fileName = uniqid().'.'.$photo->guessExtension();
+                $photo->move($photoDir, $fileName);
+            }
+            $user->setImageFileName($fileName);
+
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -73,18 +83,18 @@ class ParticipantController extends AbstractController
     #[Route('/{id}/edit', name: 'app_participant_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Participant $participant, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ParticipantType::class, $participant);
-        $form->handleRequest($request);
+        $participantForm = $this->createForm(ParticipantType::class, $participant);
+        $participantForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($participantForm->isSubmitted() && $participantForm->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_participant_edit', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('participant/edit.html.twig', [
             'participant' => $participant,
-            'form' => $form,
+            'participantForm' => $participantForm,
         ]);
     }
 

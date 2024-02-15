@@ -4,6 +4,7 @@ $fz2: 1.5rem;
 $fz3: 1.8rem;
 $fz4: 2rem;
 
+
 a {
   text-decoration: none;
 }
@@ -33,7 +34,102 @@ img {
   margin: 0 auto;
 }
 
-.index_Ville {
+.index_Participant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .search {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+
+    .div1 {
+      grid-area: 1 / 1 / 2 / 2;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 10px;
+
+      div:nth-child(1){
+        grid-area: 1 / 1 / 2 / 2;
+        display: flex;
+        justify-content: space-between;
+      }
+      div:nth-child(2){
+        grid-area: 2 / 1 / 3 / 2;
+        display: flex;
+        justify-content: space-between;
+      }
+      div:nth-child(3){
+        grid-area: 3 / 1 / 4 / 2;
+        display: flex;
+        justify-content: space-between;
+      }
+      div select, div input {
+        width: 200px;
+      }
+      label {
+        text-align: right;
+      }
+
+    }
+    .div2 {
+      grid-area: 1 / 2 / 2 / 3;
+    }
+    .submit {
+      grid-area: 2 / 1 / 3 / 3;
+    }
+    br {
+      content: '';
+      display: block;
+      margin: 10px 0;
+    }
+
+  }
+
+  .table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    thead {
+      background-color: #333;
+      color: #FDFDFD;
+      tr {
+        display: block;
+        position: relative;
+        th {
+          width: 100px;
+          text-decoration: underline;
+          padding: 5px;
+          text-align: center;
+        }
+      }
+    }
+    tbody {
+      display: block;
+      overflow: auto;
+      width: 100%;
+      height: 300px;
+      tr {
+        &:nth-child(even) {
+          background-color: #DDD;
+        }
+        td {
+          border: 1px black solid;
+          width: 100px;
+          padding: 5px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+.show_Participant {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,6 +151,125 @@ img {
           text-decoration: underline;
           padding: 5px;
           text-align: center;
+        }
+      }
+    }
+    tbody {
+      display: block;
+      overflow: auto;
+      width: 100%;
+      border: 1px black solid;
+      tr {
+        &:nth-child(even) {
+          background-color: #DDD;
+        }
+        td {
+
+          width: 100px;
+          padding: 5px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+.new_participant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .btn {
+    background-color: #BABABA;
+    color: #551A8B;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: larger;
+    margin: 0 10px;
+  }
+  .boutons {
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
+  }
+  table {
+    table-layout: fixed;
+
+    thead {
+      justify-content: center;
+      align-items: center;
+      background-color: #333;
+      color: #FDFDFD;
+      tr {
+        display: block;
+        position: relative;
+        th {
+          width: 100px;
+          text-decoration: underline;
+          padding: 5px;
+          text-align: center;
+        }
+      }
+    }
+    tbody {
+      display: block;
+      overflow: auto;
+      width: 100%;
+      border: 1px black solid;
+      tr {
+        &:nth-child(even) {
+          background-color: #DDD;
+        }
+        td {
+
+          width: 100px;
+          padding: 5px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+.index_Ville {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .btn {
+    background-color: #BABABA;
+    color: #551A8B;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: larger;
+    margin: 0 10px;
+  }
+  .boutons {
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
+  }
+  table {
+    table-layout: fixed;
+
+    thead {
+      justify-content: center;
+      align-items: center;
+      background-color: #333;
+      color: #FDFDFD;
+      tr {
+        display: block;
+        position: relative;
+        th {
+          width: 100px;
+          text-decoration: underline;
+          padding: 5px;
+          text-align: center;
+          border: 1px black solid;
         }
       }
     }
@@ -200,7 +415,7 @@ img {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 20px;
-    grid-row-gap: 20px;
+    grid-row-gap: 0px;
 
     .div1 {
       grid-area: 1 / 1 / 2 / 2;
@@ -236,8 +451,16 @@ img {
     .div2 {
       grid-area: 1 / 2 / 2 / 3;
     }
-    .submit {
+    .submit_div {
       grid-area: 2 / 1 / 3 / 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .submit {
+        padding: 10px 20px;
+        text-align: center;
+
+      }
     }
     br {
       content: '';
@@ -268,7 +491,7 @@ img {
       display: block;
       overflow: auto;
       width: 100%;
-      height: 300px;
+      max-height: 500px;
       tr {
         &:nth-child(even) {
           background-color: #DDD;
@@ -291,6 +514,106 @@ img {
   h1 {
     color: #1a2d8b;
     width: 100%;
+  }
+
+.new_Sortie {
+  font-family: "Calibri", serif;
+  .formulaire {
+    columns: 2;
+    display: block;
+  }
+  label {
+    font-size: larger;
+    margin-left: 20px;
+    width: 100%;
+  }
+  input, textarea, select {
+    display: block;
+    font-size: 1.2rem;
+    padding: 0.25em;
+    width: 40%;
+    margin-bottom: 1em;
+    margin-left: 20px;
+    border-radius: 3px;
+    border: 1px solid #BABABA;
+  }
+  .btn {
+    background-color: #BABABA;
+    color: #551A8B;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: larger;
+    margin: 0 10px;
+  }
+  .boutons {
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
+  }
+  h1, h2 {
+    color: #551A8B;
+    width: 100%;
+    text-align: center;
+  }
+  h3 {
+    margin-left: 20px;
+  }
+}
+
+.index_Campus {
+  body {
+    background-color: orange;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .header {
+    background-color:maroon;
+    color: #ffffff;
+    padding: 10px;
+  }
+
+  .header .logo {
+    float: left;
+  }
+
+  .header .nav {
+    float: right;
+  }
+
+  .main {
+    display: flex;
+  }
+
+  .sidebar {
+    width: 25%;
+    padding: 10px;
+  }
+
+  .sidebar .list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sidebar .list-item {
+    margin-bottom: 10px;
+  }
+
+  .content {
+    width: 75%;
+    padding: 10px;
+  }
+
+  .footer {
+    background-color: #444444;
+    color: #ffffff;
+    padding: 10px;
     text-align: center;
     font-size: 8rem;
   }
