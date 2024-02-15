@@ -8,13 +8,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CampusType extends AbstractType
+
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', null, ['label'=>false,'attr' => ['placeholder' =>'Saisir Campus' ]]);
-        ;
+            ->add('nom', null, [
+                'label'=>false,
+                'attr' => [
+                    'placeholder' =>'Ajouter un Campus'
+                ]
+            ]);
+
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

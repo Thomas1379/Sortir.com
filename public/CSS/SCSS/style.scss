@@ -422,7 +422,7 @@ img {
       display: grid;
       grid-template-columns: 1fr;
       grid-template-rows: repeat(3, 1fr);
-      grid-column-gap: 0px;
+      grid-column-gap: 1px;
       grid-row-gap: 10px;
 
       div:nth-child(1){
@@ -506,6 +506,15 @@ img {
     }
   }
 }
+
+.index_campus {
+  background-color: #af4b03;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  h1 {
+    color: #1a2d8b;
+    width: 100%;
+  }
 
 .new_Sortie {
   font-family: "Calibri", serif;
@@ -606,51 +615,7 @@ img {
     color: #ffffff;
     padding: 10px;
     text-align: center;
-  }
-
-  .button {
-    border: 1px solid #cd8213;
-    background-color: rgba(93, 79, 2, 0.23);
-    color: #ffffff;
-    padding: 5px 10px;
-    border-radius: 4px;
-    text-decoration: none;
-  }
-
-  .button:hover {
-    background-color: #90b40d;
-  }
-
-  .button-secondary {
-    border: 1px solid #e9ecef;
-    background-color: #039b36;
-    color: #444444;
-    padding: 5px 10px;
-    border-radius: 4px;
-    text-decoration: none;
-  }
-
-  .button-secondary:hover {
-    background-color: #05488c;
-  }
-
-  .form-field {
-    border: 1px solid #f32a02;
-    padding: 5px;
-    border-radius: 4px;
-  }
-
-  .form-submit {
-    border: 1px solid #072393;
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 5px 10px;
-    border-radius: 4px;
-    text-decoration: none;
-  }
-
-  .form-submit:hover {
-    background-color: #0069d9;
+    font-size: 8rem;
   }
 
 }
