@@ -57,6 +57,59 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder->addSelect('orga');
         $queryBuilder->addSelect('etat');
         $queryBuilder->addSelect('part');
+        if ($search['campus'] != 'ANY' && !empty($search['campus']) && $search['campus'] !== 'Choisissez un campus') {
+            $queryBuilder->andWhere('s.Campus = :campus');
+            $queryBuilder->setParameter('campus', $search['campus']);
+        }
+        $queryBuilder->andWhere('s.nom LIKE :search');
+        $queryBuilder->setParameter('search', '%' . $search['search'] . '%');
+
+        $queryBuilder->andWhere('s.dateHeureDebut BETWEEN :date1 AND :date2');
+        $queryBuilder->setParameter('date1', $search['date1']);
+        $queryBuilder->setParameter('date2', $search['date2']);
+
+        if (!empty($search['orga'])) {
+            dump('test1');
+            $queryBuilder->andWhere('s.organisateur = :orga');
+            $queryBuilder->setParameter('orga', $search['orga']);
+        }
+        else {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->orX(
+                    's.Etat != 4',
+                    's.organisateur = :user'
+                )
+            );
+            $queryBuilder->setParameter('user', $user);
+        }
+
+        if (!empty($search['inscrit']) && !empty($search['noinscrit'])) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->orX(
+                    ':inscrit MEMBER OF s.Participant',
+                    ':noinscrit NOT MEMBER OF s.Participant'
+                )
+            );
+            $queryBuilder->setParameter('inscrit', $search['inscrit']);
+            $queryBuilder->setParameter('noinscrit', $search['noinscrit']);
+        } elseif (!empty($search['inscrit'])) {
+            $queryBuilder->andWhere(':inscrit MEMBER OF s.Participant');
+            $queryBuilder->setParameter('inscrit', $search['inscrit']);
+        } elseif (!empty($search['noinscrit'])) {
+            $queryBuilder->andWhere(':noinscrit NOT MEMBER OF s.Participant');
+            $queryBuilder->setParameter('noinscrit', $search['noinscrit']);
+        }
+
+        if (!empty($search['passe'])) {
+            dump('test2');
+            $queryBuilder->andWhere('s.dateHeureDebut < :currentDate');
+            $queryBuilder->setParameter('currentDate', $currentDate->format('Y-m-d'));
+        } else {
+            $queryBuilder->andWhere('s.dateHeureDebut > :currentDate');
+            $queryBuilder->setParameter('currentDate', $currentDate->format('Y-m-d'));
+        }
+
+
 
         if ($search['campus'] != 'ANY' && !empty($search['campus']) && $search['campus'] !== 'Choisissez un campus') {
             $queryBuilder->andWhere('s.Campus = :campus');

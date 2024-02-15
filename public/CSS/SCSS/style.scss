@@ -81,8 +81,15 @@ img {
     .div2 {
       grid-area: 1 / 2 / 2 / 3;
     }
-    .submit {
+    .submit_div {
       grid-area: 2 / 1 / 3 / 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .submit {
+        padding: 10px 20px;
+        text-align: center;
+      }
     }
     br {
       content: '';
@@ -113,7 +120,7 @@ img {
       display: block;
       overflow: auto;
       width: 100%;
-      height: 300px;
+      max-height: 500px;
       tr {
         &:nth-child(even) {
           background-color: #DDD;
@@ -409,14 +416,12 @@ img {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
   .search {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 20px;
     grid-row-gap: 0px;
-
     .div1 {
       grid-area: 1 / 1 / 2 / 2;
       display: grid;
@@ -424,7 +429,6 @@ img {
       grid-template-rows: repeat(3, 1fr);
       grid-column-gap: 1px;
       grid-row-gap: 10px;
-
       div:nth-child(1){
         grid-area: 1 / 1 / 2 / 2;
         display: flex;
@@ -446,7 +450,6 @@ img {
       label {
         text-align: right;
       }
-
     }
     .div2 {
       grid-area: 1 / 2 / 2 / 3;
@@ -459,7 +462,6 @@ img {
       .submit {
         padding: 10px 20px;
         text-align: center;
-
       }
     }
     br {
@@ -467,26 +469,44 @@ img {
       display: block;
       margin: 10px 0;
     }
-
   }
 
   .table {
-    table-layout: fixed;
-    border-collapse: collapse;
-    thead {
-      background-color: #333;
-      color: #FDFDFD;
-      tr {
-        display: block;
-        position: relative;
-        th {
-          width: 100px;
-          text-decoration: underline;
-          padding: 5px;
-          text-align: center;
+          table-layout: fixed;
+          border-collapse: collapse;
+          thead {
+            background-color: #333;
+            color: #FDFDFD;
+            tr {
+              display: block;
+              position: relative;
+              th {
+                width: 100px;
+                text-decoration: underline;
+                padding: 5px;
+                text-align: center;
+              }
+            }
+          }
+          tbody {
+            display: block;
+            overflow: auto;
+            width: 100%;
+            max-height: 400px;
+            tr {
+              &:nth-child(even) {
+                background-color: #DDD;
+              }
+              td {
+                border: 1px black solid;
+                width: 100px;
+                padding: 5px;
+                text-align: center;
+              }
+            }
+          }
         }
       }
-    }
     tbody {
       display: block;
       overflow: auto;
@@ -496,16 +516,6 @@ img {
         &:nth-child(even) {
           background-color: #DDD;
         }
-        td {
-          border: 1px black solid;
-          width: 100px;
-          padding: 5px;
-          text-align: center;
-        }
-      }
-    }
-  }
-}
 
 .index_campus {
   background-color: #af4b03;
@@ -617,6 +627,10 @@ img {
     text-align: center;
     font-size: 8rem;
   }
-
 }
+}
+      }
+    }
+
+
 

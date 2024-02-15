@@ -155,16 +155,16 @@
 {% endblock %}
 
 {% block script %}
-    <script>
-        function showCancelPopup(path) {
-            var reason = prompt("Veuillez indiquer la raison de l'annulation :");
-            if (reason !== null) {
-                // L'utilisateur a cliqué sur OK et a fourni une raison
-                // Redirigez-le vers le contrôleur pour traiter l'annulation avec la raison
-                window.location.href = path + "?reason=" + encodeURIComponent(reason);
-            } else {
-                window.location.href = path + "?reason=" + encodeURIComponent("Aucune raison");
-            }
+<script>
+    function showCancelPopup(path) {
+        var reason = prompt("Veuillez indiquer la raison de l'annulation :");
+        if (reason !== null) {
+            // L'utilisateur a cliqué sur OK et a fourni une raison
+            // Redirigez-le vers le contrôleur pour traiter l'annulation avec la raison
+            window.location.href = path + "?reason=" + encodeURIComponent(reason);
+        } else {
+            window.location.href = path + "?reason=" + encodeURIComponent("Aucune raison");
         }
-    </script>
+    }
+</script>
 {% endblock %}
