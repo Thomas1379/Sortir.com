@@ -65,7 +65,7 @@ class SortieController extends AbstractController
         $response->send();
         $sorties = $sortieRepository->searchByName($search);
         $campus = $campusRepository->findAll();
-        
+
         // Pagination
         $pagination = $paginator->paginate(
             $sorties,
