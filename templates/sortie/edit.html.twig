@@ -8,46 +8,11 @@
             <div class="sortie_detail">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-{#                <form name="sortie" method="post">#}
-{#                    <div>#}
-{#                        <label for="sortie_nom" class="required">Nom de la sortie : </label>#}
-{#                        <input type="text" id="sortie_nom" name="sortie[nom]" required="required" value={{ sortie.nom }}>#}
-{#                    </div>#}
-                        {# problème pour afficher la date prédéfinie #}
-               {#     <div>
-                        <label for="sortie_dateHeureDebut" class="required">Date et heure de la sortie : </label>
-                        <input type="datetime-local" id="sortie_dateHeureDebut" name="sortie[dateHeureDebut]" required="required" value={{ sortie.dateHeureDebut|date('Y-m-d\\TH:i') }}>
-                    </div>
-                    <div>
-                        #}{# problème pour afficher la date prédéfinie #}{#
-                        <label for="sortie_dateLimiteInscription" class="required">Date limite d'inscription : </label>
-                        <input type="date" id="dateLimiteInscription" name="sortie[dateLimiteInscription]" required="required" value={{ sortie.dateLimiteInscription|date('Y-m-d') }}>
-                    </div>
-                    <div>
-                        <label for="sortie_nbInscriptionsMax" class="required">Nombre de places : </label>
-                        <input type="number" id="sortie_nbInscriptionsMax" name="sortie[nbInscriptionsMax]" required="required" value={{ sortie.nbInscriptionsMax }}>
-                    </div>
-                    <div>
-                        <label for="sortie_duree" class="required">Durée (min): </label>
-                        <input type="number" id="sortie_duree" name="sortie[duree]" required="required" value={{ sortie.duree }}>
-                    </div>
-                    <div>
-                        <label for="sortie_infosSortie" class="required">Description et infos : </label>
-                        <textarea id="sortie_infosSortie" name="sortie[infosSortie]" value="">{{ sortie.infosSortie }}</textarea>
-                    #}</div>
+
                     {# problème pour afficher la liste des campus #}
                     <label for="sortie_campus" class="required">Campus : {{ sortie.campus.nom }}</label>
 
-{#                    <div>#}
-{#                        <label for="sortie_campus" class="required">Campus : </label>#}
-{#                        <select id="sortie_campus" name="sortie[infosCampus]" required="required">#}
-{#                             <option value="" selected="selected" disabled >{{ sortie.campus.nom }}</option>#}
-{#                            {% for campus in sortie.organisateur.campus %}#}
-{#                                <option value="{{ campus.id }}">{{ campus.nom }}</option>#}
-{#                            {% endfor %}#}
-{#                        </select>#}
-{#                    </div>#}
-                    {# problème pour afficher la liste des lieux #}
+
                     <div>
                         <label for="sortie_lieu" class="required">Lieu : </label>
                         <select id="sortie_lieu" name="sortie[lieu]" required="required">
@@ -81,7 +46,7 @@
                     </div>
 
                 <div>
-              {# {{ include('sortie/_form.html.twig', {'button_label': 'Enregistrer'}) }}#}
+
                     <div class="boutons">
                         <button class="btn" name=submit value="enregistrer">Enregistrer</button>
                         <button class="btn" name=submit value="publier">Publier la sortie</button>
@@ -90,6 +55,6 @@
                     </div>
                 </div>
          {{ form_end(form) }}
-{#         </form>#}
+
     </div>
 {% endblock %}

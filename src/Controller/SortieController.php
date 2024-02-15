@@ -189,7 +189,7 @@ class SortieController extends AbstractController
                 {
                     $entityManager->remove($sortie);
                     $entityManager->flush();
-//cette partie du code ne fonctionne pas (VQ)
+//              cette partie du code ne fonctionne pas (VQ)
 //                    if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {
 //                          $entityManager->remove($sortie);
 //                          $entityManager->flush();
