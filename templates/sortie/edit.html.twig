@@ -1,13 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Sortie{% endblock %}
+{% block title %}Modification sortie | {{ parent() }}{% endblock %}
 
 {% block body %}
-<div class="new_Sortie">
-    <h1>Edit Sortie</h1>
+    <div class="new_Sortie">
+        <h1>Modifier une sortie</h1>
+            <div class="sortie_detail">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
 
-    {{ include('sortie/_form.html.twig', {'button_label': 'Update'}) }}
+                    {# problème pour afficher la liste des campus #}
+                    <label for="sortie_campus" class="required">Campus : {{ sortie.campus.nom }}</label>
 
-    <a href="{{ path('app_sortie_index') }}">back to list</a>
-</div>
+
+                    <div>
+                        <label for="sortie_lieu" class="required">Lieu : </label>
+                        <select id="sortie_lieu" name="sortie[lieu]" required="required">
+                            <option value="" selected="selected" disabled> {{ sortie.lieu.nom }} (à confirmer ou modifier dans la liste)</option>
+                            {% for ville in villes %}
+                                <optgroup label="{{ ville.nom }}">
+                                    {% for lieu in ville.getLieus %}
+                                        <option value="{{ lieu.id }}">{{ lieu.nom }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sortie_rue" class="required">Rue : {{ sortie.lieu.rue }}</label>
+                    </div>
+                    <div>
+                        <label for="sortie_codePostal" class="required">Code postal : {{ sortie.lieu.ville.codePostal }}</label>
+                    </div>
+                    <div>
+                        <label for="sortie_ville" class="required">Ville : {{ sortie.lieu.ville.nom }}</label>
+                    </div>
+                    <div>
+                        <label for="sortie_latitude" >Latitude : {{  sortie.lieu.latitude }}</label>
+                    </div>
+                    <div>
+                        <label for="sortie_longitude" >Longitude : {{  sortie.lieu.longitude }}</label>
+                    </div>
+                    <div><a href="{{ path('app_lieu_new') }}">
+                            <img class="plus" src="{{ asset('img/plus.png') }}" alt="Créer un nouveau lieu" width="10%"></a>
+                    </div>
+
+                <div>
+
+                    <div class="boutons">
+                        <button class="btn" name=submit value="enregistrer">Enregistrer</button>
+                        <button class="btn" name=submit value="publier">Publier la sortie</button>
+                        <button class="btn" name=submit value="supprimer">Supprimer la sortie</button>
+                        <button class="btn" name=submit value="annuler"><a href="{{ path('app_sortie_index') }}">Annuler</a></button>
+                    </div>
+                </div>
+         {{ form_end(form) }}
+
+    </div>
 {% endblock %}

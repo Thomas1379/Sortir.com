@@ -157,23 +157,72 @@ class SortieController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_sortie_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request,
+                         Sortie $sortie,
+                         EntityManagerInterface $entityManager,
+                         EtatRepository $etatRepository,
+                         LieuRepository $lieuRepository,
+                         VilleRepository $villeRepository): Response
     {
+        $villes = $villeRepository->getAllVille();
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $sortie = $form->getData();
+            $submited = $request->request->get('submit');
+            $lieu = $lieuRepository->findOneBy(['id' => $request->request->all('sortie')['lieu']]);
+            $sortie->setLieu($lieu);
 
-            $this->addFlash('Success', '"' . $sortie->getNom() . '" a bien été modifiée');
-            return $this->redirectToRoute('app_sortie_show', ['id' => $sortie->getId()], Response::HTTP_SEE_OTHER);
+            switch($submited) {
+                case"enregistrer":
+                {
+                    $etat = $etatRepository->find(4);
+                    $sortie->setEtat($etat);
+                    $entityManager->persist($sortie);
+                    $entityManager->flush();
+                    $this->addFlash('warning',"Merci, votre sortie a été modifiée, elle n'est pas encore publiée");
+                    return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+                }
+
+                case"publier":
+                {
+                    $etat = $etatRepository->find(1);
+                    $sortie->setEtat($etat);
+                    $entityManager->persist($sortie);
+                    $entityManager->flush();
+                    $this->addFlash('success',"Merci, votre sortie est publiée");
+                    return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+                }
+
+                case"supprimer":
+                {
+                    $entityManager->remove($sortie);
+                    $entityManager->flush();
+//              cette partie du code ne fonctionne pas (VQ)
+//                    if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {
+//                          $entityManager->remove($sortie);
+//                          $entityManager->flush();
+//                    }
+                    $this->addFlash('Success', 'Vous venez de supprimer la sortie "' . $sortie->getNom() . '"');
+                    return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+                }
+
+                case"annuler":
+                {
+                    $this->addFlash('warning',"Votre sortie n'a pas été enregistrée");
+                    return $this->redirectToRoute('app_sortie_index');
+                }
+            }
         }
 
         return $this->render('sortie/edit.html.twig', [
-            'sortie' => $sortie,
-            'form' => $form,
+                'sortie' => $sortie,
+                'villes' => $villes,
+                'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_sortie_delete', methods: ['POST'])]
     public function delete(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response

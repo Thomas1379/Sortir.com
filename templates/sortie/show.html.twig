@@ -1,48 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sortie{% endblock %}
+{% block title %}Afficher une sortie | {{ parent() }}{% endblock %}
 
 {% block body %}
 <div class="new_Sortie">
-    <h1>Sortie</h1>
+    <h1>Afficher une sortie</h1>
 
     <table class="table">
         <tbody>
+
             <tr>
-                <th>Id</th>
-                <td>{{ sortie.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
+                <th>Nom de la sortie : </th>
                 <td>{{ sortie.nom }}</td>
             </tr>
             <tr>
-                <th>DateHeureDebut</th>
-                <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Date et heure de la sortie : </th>
+                <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d/m/Y H:i') : '' }}</td>
             </tr>
             <tr>
-                <th>Duree</th>
-                <td>{{ sortie.duree }}</td>
+                <th>Date limite d'inscription : </th>
+                <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d/m/Y') : '' }}</td>
             </tr>
             <tr>
-                <th>DateLimiteInscription</th>
-                <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>NbInscriptionsMax</th>
+                <th>Nombre de places : </th>
                 <td>{{ sortie.nbInscriptionsMax }}</td>
             </tr>
             <tr>
-                <th>InfosSortie</th>
+                <th>Durée : </th>
+                <td>{{ sortie.duree }} minutes</td>
+            </tr>
+            <tr>
+                <th>Description et infos :</th>
                 <td>{{ sortie.infosSortie }}</td>
             </tr>
             <tr>
-                <th>MotifAnnulation</th>
-                <td>{{ sortie.motifAnnulation }}</td>
+                <th>Campus : </th>
+                <td>{{ sortie.campus.nom }}</td>
+            </tr>
+            <tr>
+                <th>Lieu : </th>
+                <td>{{ sortie.lieu.nom }}</td>
+            </tr>
+            <tr>
+                <th>Rue :</th>
+                <td>{{ sortie.lieu.rue }}</td>
+            </tr>
+            <tr>
+                <th>Code postal : </th>
+                <td>{{ sortie.lieu.ville.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Ville :</th>
+                <td>{{ sortie.lieu.ville.nom }}</td>
+            </tr>
+            <tr>
+                <th>Latitude : </th>
+                <td>{{ sortie.lieu.latitude }}</td>
+            </tr>
+            <tr>
+                <th>Longitude :</th>
+                <td>{{ sortie.lieu.longitude }}</td>
             </tr>
         </tbody>
     </table>
+    <div>
+        <h3>Liste des participants inscrits :</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Nom</th>
+                </tr>
+            </thead>
+            <tbody>
+               {% if sortie.participant|length != 0 %}
+                    {% for participant in sortie.participant %}
+                        <tr>
+                            <td>{{ participant.getPseudo }}</td>
+                            <td>{{ participant.getPrenom }} {{ participant.getNom }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                       <tr>
+                           <td>--</td>
+                           <td>Pas d'inscrit</td>
+                       </tr>
+               {% endif %}
+            </tbody>
+        </table>
+    </div>
 
-    <a href="{{ path('app_sortie_index') }}">back to list</a>
+    <button class="btn" name="back" value="retour liste sorties" ><a href="{{ path('app_sortie_index') }}">Retour à la liste des sorties</a></button>
 </div>
 {% endblock %}
