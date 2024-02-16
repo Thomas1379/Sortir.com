@@ -34,7 +34,7 @@ class SortieController extends AbstractController
         $search = $request->query->all();
 
         // Vérifier s'il y a des données de recherche dans la requête
-        if (empty($search)) {
+        if (count($search) < 3) {
             // Si non, essayer de récupérer les données du cookie
             $searchCookie = $request->cookies->get('search');
             // Vérifier si le cookie existe et n'est pas vide
@@ -43,6 +43,8 @@ class SortieController extends AbstractController
                 $search = json_decode($searchCookie, true);
             }
         }
+
+        dump($search);
         $user = $this->getUser();
 
         if (empty($search['campus']) || $search['campus'] === 'Choisissez un campus') {
