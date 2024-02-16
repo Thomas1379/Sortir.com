@@ -4,7 +4,9 @@
 
 {% block body %}
     <div class="index_Sortie">
-        <h1>Sortie index</h1>
+
+        <p>Pseudo : {{ app.user.pseudo }}</p>
+        <p>Date du jour : {{ "now"|date("d/m/Y") }}</p>
 
         <h2 class="filter_title">Filtre</h2>
         <form class="search" action="{{ path('app_sortie_index') }}" method="get">
@@ -76,8 +78,8 @@
                             <td>{{ sortie.nom }} {% if search['campus'] is same as('ANY') %}
                                     ({{ sortie.campus.nom }})
                                 {% endif %}</td>
-                            <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }} ({{ sortie.duree }} minutes)</td>
-                            <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</td>
+                            <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d/m/Y H:i') : '' }} ({{ sortie.duree }} minutes)</td>
+                            <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d/m/Y') : '' }}</td>
                             <td>{{ sortie.Participant|length }}/{{ sortie.nbInscriptionsMax }}</td>
                             <td>{{ sortie.Etat.libelle }}</td>
                             <td>
@@ -163,6 +165,6 @@
         } else {
             window.location.href = path + "?reason=" + encodeURIComponent("Aucune raison");
         }
-    }
+    }}
 </script>
 {% endblock %}
