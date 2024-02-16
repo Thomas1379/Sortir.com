@@ -20,8 +20,8 @@ class VilleType extends AbstractType
                 ['label'=>false,
                     'constraints' => [
                         new Regex([
-                            'pattern' => '/^[a-zA-Z]+$/',
-                            'message' => 'Le nom de la ville ne doit contenir que des lettres'
+                            'pattern' => '/^[a-zA-ZÀ-ÿ\s\-]+$/',
+                            'message' => 'Le nom de la ville ne doit contenir que des lettres/accents/espaces/tirets'
                         ])
                     ]
                 ])
@@ -29,7 +29,7 @@ class VilleType extends AbstractType
                 ['label'=>false,
                     'constraints' => [
                         new Regex([
-                            'pattern' => '/^[0-9]{5}$/',
+                            'pattern' => '^\d{5}$',
                             'message' => 'Le code postal ne doit contenir que 5 chiffres'
                         ])
                     ]
