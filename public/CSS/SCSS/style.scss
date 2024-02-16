@@ -871,3 +871,127 @@ button, a, input[type='checkbox'] {
     }
   }
 }
+
+.index_campus {
+  background-color: orange;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .header {
+    background-color:maroon;
+    color: #ffffff;
+    padding: 10px;
+  }
+
+  .header .logo {
+    float: left;
+  }
+
+  .header .nav {
+    float: right;
+  }
+
+  .main {
+    display: flex;
+  }
+
+  .sidebar {
+    width: 25%;
+    padding: 10px;
+  }
+
+  .sidebar .list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sidebar .list-item {
+    margin-bottom: 10px;
+  }
+
+  .content {
+    width: 75%;
+    padding: 10px;
+  }
+
+  .footer {
+    background-color: #444444;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .button {
+    border: 1px solid #cd8213;
+    background-color: rgba(93, 79, 2, 0.23);
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  .button:hover {
+    background-color: #90b40d;
+  }
+
+  .button-secondary {
+    border: 1px solid #e9ecef;
+    background-color: #039b36;
+    color: #444444;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  .button-secondary:hover {
+    background-color: #05488c;
+  }
+
+  .form-field {
+    border: 1px solid #f32a02;
+    padding: 5px;
+    border-radius: 4px;
+  }
+
+  .form-submit {
+    border: 1px solid #072393;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  .form-submit:hover {
+    background-color: #0069d9;
+  }
+}
+
+.flash {
+  .flash-success {
+    background-color: #28a745; /* Couleur de fond pour le succès */
+    color: #fff;
+    font-size: 2rem;
+    text-align:center;
+    /* Ajoutez d'autres styles de votre choix */
+  }
+  .flash-warning {
+    background-color: orange; /* Couleur de fond pour le succès */
+    color: #fff;
+    font-size: 2rem;
+    text-align:center;/* Couleur du texte */
+    /* Ajoutez d'autres styles de votre choix */
+  }
+  .flash-fail {
+    background-color: red; /* Couleur de fond pour le succès */
+    color: #fff;
+    font-size: 2rem;
+    text-align:center;/* Couleur du texte */
+    /* Ajoutez d'autres styles de votre choix */
+  }
+}
