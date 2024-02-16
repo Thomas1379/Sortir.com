@@ -289,6 +289,24 @@ button, a, input[type='checkbox'] {
   }
 }
 
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .btn {
+    text-align: center;
+    background-color: #BABABA;
+    color: #551A8B;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: larger;
+    margin: 0 10px;
+  }
+}
+
 .index_Ville {
   display: flex;
   justify-content: center;
@@ -350,6 +368,10 @@ button, a, input[type='checkbox'] {
       }
     }
   }
+}
+
+.delete_ville {
+
 }
 
 .image-container {
