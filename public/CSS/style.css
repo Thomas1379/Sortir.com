@@ -793,86 +793,59 @@ button, a, input[type=checkbox] {
 }
 
 .index_campus {
-  background-color: orange;
-  font-family: "Roboto", sans-serif;
-  font-size: 16px;
-}
-.index_campus .container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.index_campus .header {
-  background-color: maroon;
-  color: #ffffff;
-  padding: 10px;
-}
-.index_campus .header .logo {
-  float: left;
-}
-.index_campus .header .nav {
-  float: right;
-}
-.index_campus .main {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.index_campus .sidebar {
-  width: 25%;
-  padding: 10px;
+.index_campus .btn {
+  background-color: #BABABA;
+  color: #551A8B;
+  border: none;
+  border-radius: 4px;
+  font-size: larger;
+  margin: 0 10px;
 }
-.index_campus .sidebar .list {
-  list-style: none;
-  padding: 0;
+.index_campus .boutons {
+  padding-top: 5%;
+  display: flex;
+  justify-content: center;
 }
-.index_campus .sidebar .list-item {
-  margin-bottom: 10px;
+.index_campus table {
+  table-layout: fixed;
+  border-collapse: collapse;
 }
-.index_campus .content {
-  width: 75%;
-  padding: 10px;
+.index_campus table thead {
+  background-color: #333;
+  color: #FDFDFD;
 }
-.index_campus .footer {
-  background-color: #444444;
-  color: #ffffff;
-  padding: 10px;
+.index_campus table thead tr {
+  display: block;
+  position: relative;
+}
+.index_campus table thead tr th {
+  width: 250px;
+  text-decoration: underline;
+  padding: 5px;
   text-align: center;
 }
-.index_campus .button {
-  border: 1px solid #cd8213;
-  background-color: rgba(93, 79, 2, 0.23);
-  color: #ffffff;
-  padding: 5px 10px;
-  border-radius: 4px;
-  text-decoration: none;
+.index_campus table tbody {
+  display: block;
+  overflow: auto;
+  width: 100%;
+  max-height: 400px;
 }
-.index_campus .button:hover {
-  background-color: #90b40d;
+.index_campus table tbody tr:nth-child(even) {
+  background-color: #DDD;
 }
-.index_campus .button-secondary {
-  border: 1px solid #e9ecef;
-  background-color: #039b36;
-  color: #444444;
-  padding: 5px 10px;
-  border-radius: 4px;
-  text-decoration: none;
-}
-.index_campus .button-secondary:hover {
-  background-color: #05488c;
-}
-.index_campus .form-field {
-  border: 1px solid #f32a02;
+.index_campus table tbody tr td {
+  border: 1px black solid;
+  width: 250px;
   padding: 5px;
-  border-radius: 4px;
+  text-align: center;
 }
-.index_campus .form-submit {
-  border: 1px solid #072393;
-  background-color: #007bff;
-  color: #ffffff;
-  padding: 5px 10px;
-  border-radius: 4px;
-  text-decoration: none;
-}
-.index_campus .form-submit:hover {
-  background-color: #0069d9;
+.index_campus table tbody tr:last-child td input {
+  width: 80%;
 }
 
 .flash-success {
