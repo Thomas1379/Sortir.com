@@ -1,0 +1,26 @@
+.flash.flash-success {
+    background-color: #28a745; /* Couleur de fond pour le succès */
+    color: #fff;
+    font-size: 2rem;
+    text-align:center;
+    /* Ajoutez d'autres styles de votre choix */
+}
+.flash.flash-warning {
+    background-color: orange; /* Couleur de fond pour le succès */
+    color: #fff;
+    font-size: 2rem;
+    text-align:center;/* Couleur du texte */
+    /* Ajoutez d'autres styles de votre choix */
+}
+.flash.flash-fail {
+    background-color: red; /* Couleur de fond pour le succès */
+    color: #fff;
+    font-size: 2rem;
+    text-align:center;/* Couleur du texte */
+    /* Ajoutez d'autres styles de votre choix */
+}
+
+
+
+
+

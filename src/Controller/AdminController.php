@@ -36,9 +36,9 @@ class AdminController extends AbstractController
             $user->setActif(0);
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('Success', "l'utilisateur " . $user->getEmail() . " a bien était désactivé");
+            $this->addFlash('success', "l'utilisateur " . $user->getEmail() . " a bien était désactivé");
         } else {
-            $this->addFlash('Fail', "l'utilisateur n'a pas était trouvé");
+            $this->addFlash('fail', "l'utilisateur n'a pas était trouvé");
         }
 
         return $this->redirectToRoute('app_admin_user');
@@ -51,9 +51,9 @@ class AdminController extends AbstractController
             $user->setActif(1);
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('Success', "l'utilisateur " . $user->getEmail() . " a bien était activé");
+            $this->addFlash('success', "l'utilisateur " . $user->getEmail() . " a bien était activé");
         } else {
-            $this->addFlash('Fail', "l'utilisateur n'a pas était trouvé");
+            $this->addFlash('fail', "l'utilisateur n'a pas était trouvé");
         }
 
         return $this->redirectToRoute('app_admin_user');
