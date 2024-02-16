@@ -49,6 +49,10 @@ a {
   text-decoration: none;
 }
 
+tbody tr:nth-child(even) {
+  background-color: #DDD;
+}
+
 .container {
   width: 100%;
   min-height: 80vh;
@@ -520,20 +524,69 @@ button, a, input[type=checkbox] {
   text-align: center;
 }
 
-tbody tr:nth-child(even) {
-  background-color: #DDD;
+.dashboard_admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
+}
+.dashboard_admin a {
+  padding: 10px;
+  margin: 0 10px;
+  font-size: 2rem;
+  border: 1px solid black;
+  border-radius: 20px;
+  color: black;
+  transition: transform 1s 0.1ms;
+  transform: scale(1);
+}
+.dashboard_admin a:hover {
+  color: white;
+  background-color: #DA6D29;
+  transition: transform 1s 0.1ms;
+  transform: scale(1.1);
 }
 
-/*.index_campus {
-  background-color: #af4b03;
-  font-family: "Roboto", sans-serif;
-  font-size: 16px;
-  h1 {
-    color: #1a2d8b;
-    width: 100%;
-  }
+.user_admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.user_admin .table {
+  border-collapse: collapse;
+}
+.user_admin .table thead {
+  background-color: #333;
+}
+.user_admin .table thead tr th {
+  padding: 12px 10px;
+  text-decoration: underline;
+  text-align: center;
+  color: #FDFDFD;
+}
+.user_admin .table tbody {
+  overflow: auto;
+  width: 100%;
+  max-height: 400px;
+}
+.user_admin .table tbody tr:nth-child(even) {
+  background-color: #DDD;
+}
+.user_admin .table tbody tr:hover {
+  background-color: #cccccc;
+}
+.user_admin .table tbody tr td {
+  border: 1px black solid;
+  padding: 20px 10px;
+  text-align: center;
+}
+.user_admin .table tbody tr td a {
+  color: #DA6D29;
+}
 
-.new_Sortie {
+/*.new_Sortie {
   font-family: "Calibri", serif;
   .formulaire {
     columns: 2;
@@ -577,66 +630,5 @@ tbody tr:nth-child(even) {
     margin-left: 20px;
   }
 }*/
-/*.index_Campus {
-  body {
-    background-color: orange;
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .header {
-    background-color:maroon;
-    color: #ffffff;
-    padding: 10px;
-  }
-
-  .header .logo {
-    float: left;
-  }
-
-  .header .nav {
-    float: left;
-  }
-
-  .main {
-    display: flex;
-  }
-
-  .sidebar {
-    width: 25%;
-    padding: 10px;
-  }
-
-  .sidebar .list {
-    list-style: none;
-    padding: 0;
-  }
-
-  .sidebar .list-item {
-    margin-bottom: 10px;
-  }
-
-  .content {
-    width: 75%;
-    padding: 10px;
-  }
-
-  .footer {
-    background-color: #444444;
-    color: #ffffff;
-    padding: 10px;
-    text-align: center;
-    font-size: 8rem;
-  }
-}
-}
-      }
-    }
- */
 
 /*# sourceMappingURL=style.css.map */
