@@ -29,7 +29,7 @@ class VilleType extends AbstractType
                 ['label'=>false,
                     'constraints' => [
                         new Regex([
-                            'pattern' => '^\d{5}$',
+                            'pattern' => '/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/i',
                             'message' => 'Le code postal ne doit contenir que 5 chiffres'
                         ])
                     ]
