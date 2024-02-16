@@ -3,32 +3,34 @@
 {% block title %}Nouvelle sortie | {{ parent() }}{% endblock %}
 {% block body %}
     <div class="new_Sortie">
+            <div class="titre">
+                <h1>Créer une nouvelle sortie</h1>
+                <h2>Salut {{ app.user.pseudo }} !</h2>
+                <h3>Campus de {{ app.user.campus.nom}} </h3>
+            </div>
 
-    <h1>Créer une nouvelle sortie</h1>
+                <div class="gauche">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                </div>
 
-    <h2>Salut {{ app.user.pseudo }} !</h2>
-
-        <h3>Campus de {{ app.user.campus.nom}} </h3>
-            <div class="formulaire">
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <div>
+                <div class="droite">
                     <label for="sortie_lieu">Lieu :</label>
                     <select name="sortie[lieu]" id="sortie_lieu" required="required">
                         <option value="" selected="selected" disabled>Choisissez un lieu</option>
                         {% for ville in villes %}
                             <optgroup label="{{ ville.nom }}">
-                            {% for lieu in ville.getLieus %}
-                                <option value="{{ lieu.id }}">{{ lieu.nom }}</option>
-                            {% endfor %}
+                                {% for lieu in ville.getLieus %}
+                                    <option value="{{ lieu.id }}">{{ lieu.nom }}</option>
+                                {% endfor %}
                             </optgroup>
                         {% endfor %}
                     </select>
+                    <a href="{{ path('app_lieu_new') }}">
+                        <img class="plus" src="{{ asset('img/plus.png') }}" alt="Créer un nouveau lieu" width="10%"></a>
                 </div>
-                <a href="{{ path('app_lieu_new') }}">
-                    <img class="plus" src="{{ asset('img/plus.png') }}" alt="Créer un nouveau lieu" width="10%"></a>
 
-            </div>
+
             <div class="boutons">
                 <button class="btn" name=submit value="enregistrer">Enregistrer</button>
                 <button class="btn" name=submit value="publier">Publier la sortie</button>
