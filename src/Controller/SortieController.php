@@ -197,7 +197,7 @@ class SortieController extends AbstractController
 //                          $entityManager->remove($sortie);
 //                          $entityManager->flush();
 //                    }
-                    $this->addFlash('Success', 'Vous venez de supprimer la sortie "' . $sortie->getNom() . '"');
+                    $this->addFlash('success', 'Vous venez de supprimer la sortie "' . $sortie->getNom() . '"');
                     return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
                 }
 
@@ -225,7 +225,7 @@ class SortieController extends AbstractController
             $entityManager->flush();
         }
 
-        $this->addFlash('Success', 'Vous venez de supprimer la sortie "' . $sortie->getNom() . '"');
+        $this->addFlash('success', 'Vous venez de supprimer la sortie "' . $sortie->getNom() . '"');
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/inscription/{id}', name: 'app_sortie_inscription', methods: ['GET'])]
@@ -235,18 +235,18 @@ class SortieController extends AbstractController
 
         // Vérifier si la sortie a l'état "ouvert"
         if ($sortie->getEtat()->getId() !== 1) {
-            $this->addFlash('Fail', "Impossible de s'inscrire à cette sortie car elle n'est pas ouverte.");
+            $this->addFlash('fail', "Impossible de s'inscrire à cette sortie car elle n'est pas ouverte.");
             return $this->redirectToRoute('app_sortie_index');
         }
 
         if ($sortie->getNbInscriptionsMax() <= $sortie->getParticipant()->count()) {
-            $this->addFlash('Fail', "La sortie est déjà pleine");
+            $this->addFlash('fail', "La sortie est déjà pleine");
             $sortie->setEtat($etatRepository->find(2));
             $entityManager->persist($sortie);
             $entityManager->flush();
         } else {
             if ($sortie->getDateLimiteInscription() < $now) {
-                $this->addFlash('Fail', "La date d'inscription est dépassée");
+                $this->addFlash('fail', "La date d'inscription est dépassée");
                 $sortie->setEtat($etatRepository->find(2));
                 $entityManager->persist($sortie);
                 $entityManager->flush();
@@ -258,7 +258,7 @@ class SortieController extends AbstractController
                 $sortie->addParticipant($participant);
                 $entityManager->persist($sortie);
                 $entityManager->flush();
-                $this->addFlash('Success', 'Votre inscription a bien été prise en compte');
+                $this->addFlash('success', 'Votre inscription a bien été prise en compte');
             }
         }
         return $this->redirectToRoute('app_sortie_index');
@@ -276,10 +276,10 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('Success', 'Vous venez de vous désinscrire de la sortie : ' . $sortie->getNom());
+            $this->addFlash('success', 'Vous venez de vous désinscrire de la sortie : ' . $sortie->getNom());
         }
         else{
-            $this->addFlash('Fail', "trop tard ! La date de la sortie est dépassée");
+            $this->addFlash('fail', "trop tard ! La date de la sortie est dépassée");
             $sortie->setEtat($etatRepository->find(2));
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -295,7 +295,7 @@ class SortieController extends AbstractController
         $entityManager->persist($sortie);
         $entityManager->flush();
 
-        $this->addFlash('Success', 'Votre sortie "' . $sortie->getNom() . '" a bien été publiée');
+        $this->addFlash('success', 'Votre sortie "' . $sortie->getNom() . '" a bien été publiée');
         return $this->redirectToRoute('app_sortie_index');
     }
 
