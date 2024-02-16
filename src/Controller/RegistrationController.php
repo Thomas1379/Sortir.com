@@ -35,7 +35,6 @@ class RegistrationController extends AbstractController
             $user->setPseudo(
                 $user->getPrenom() . ' ' . substr($user->getNom(), 0, 1) . '.'
             );
-            dd($user);
             // Haschage du password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
