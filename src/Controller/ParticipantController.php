@@ -62,7 +62,8 @@ class ParticipantController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
+
+
 
             return $this->redirectToRoute('app_participant_index');
         }
@@ -89,7 +90,7 @@ class ParticipantController extends AbstractController
         if ($participantForm->isSubmitted() && $participantForm->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_participant_edit', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_participant_index');
         }
 
         return $this->render('participant/edit.html.twig', [

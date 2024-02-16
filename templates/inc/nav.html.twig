@@ -1,10 +1,17 @@
 <nav>
     <ul>
-        <li><a href="{{ path('app_ville_index') }}" title="index_ville">Villes</a></li>
-        <li><a href="{{ path('app_campus_index') }}" title="index_campus">Campus</a></li>
-        <li><a href="{{ path('app_login') }}" title="login">Accueil</a></li>
-        <li><a href="{{ path('app_participant_new') }}" title="Mon profil">Mon profil</a></li>
-        <li><a href="{{ path('app_logout') }}" title="logout">Se déconnecter</a></li>
-        <li><a href="{{ path('app_sortie_new') }}" title="create">Création de sorties</a></li>
+        {% if app.user %}
+            <li><a href="{{ path('app_sortie_index') }}" title="index">Accueil</a></li>
+            <li><a href="{{ path('app_participant_edit', {'id': app.user.id}) }}" title="Mon profil">Mon profil</a></li>
+            <li><a href="{{ path('app_logout') }}" title="logout">Se déconnecter</a></li>
+
+            {% if is_granted("ROLE_ADMIN") %}
+                <li><a href="{{ path('app_ville_index') }}" title="index_ville">Villes</a></li>
+                <li><a href="{{ path('app_campus_index') }}" title="index_campus">Campus</a></li>
+                <li><a href="{{ path('app_admin_register') }}" title="register">Inscription</a></li>
+                <li><a href="{{ path('app_participant_index') }}" title="list">Liste des participants</a></li>
+            {% endif %}
+
+        {% endif %}
     </ul>
 </nav>
