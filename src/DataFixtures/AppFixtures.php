@@ -140,7 +140,6 @@ class AppFixtures extends Fixture
             $manager->persist($sortie_part);
         }
 
-
         $manager->flush();
     }
 }
