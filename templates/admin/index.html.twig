@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="dashboard_admin">
+        <a href="{{ path('app_admin_user') }}">Gérer les utilisateurs</a>
+        <a href="{{ path('app_campus_index') }}">Gérer les campus</a>
+        <a href="{{ path('app_ville_index') }}">Gérer les villes</a>
+    </div>
+{% endblock %}

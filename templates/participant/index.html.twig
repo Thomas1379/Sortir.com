@@ -3,32 +3,54 @@
 {% block title %}Participant index{% endblock %}
 
 {% block body %}
-    <div class="index_Participant">
-        <h1>Liste des participants</h1>
-
+    <div class="user_admin">
+        <h1>Liste des users</h1>
 
         <table class="table">
             <thead>
             <tr>
+                <th>Email</th>
                 <th>Nom</th>
-                <th>Prenom</th>
-                <th>Telephone</th>
+                <th>Prénom</th>
+                <th>Tél.</th>
+                <th>Pseudo</th>
+                <th>Campus</th>
+                <th>Role</th>
+                <th>Actif</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            {% for participant in participants %}
+            {% for user in users %}
                 <tr>
-                    <td>{{ participant.nom }}</td>
-                    <td>{{ participant.prenom }}</td>
-                    <td>{{ participant.telephone }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.telephone }}</td>
+                    <td>{{ user.pseudo }}</td>
+                    <td>{{ user.campus.nom }}</td>
+                    <td>{{ user.roles[0] }}</td>
+                    {% if user.actif == 1 %}
+                        <td style="color: green">
+                            oui
+                        </td>
+                    {% else %}
+                        <td style="color: red">
+                            non
+                        </td>
+                    {% endif %}
                     <td>
-
-                    <div class="boutons">
-                        <div class="btn"><a href="{{ path('app_participant_show', {'id': participant.id}) }}">Détails</a></div>
-                        <div class="btn"><a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a></div>
-                            <div class="btn"><a href="{{ path('app_participant_delete', {'id': participant.id}) }}">Supprimer</a></div>
-                    </div>
+                        {% if user.actif == 1 %}
+                            <a href="{{ path('app_admin_desactivate', {'id': user.id}) }}">désactivé le compte</a>
+                            -
+                            <a href="{{ path('app_participant_edit', {'id': user.id}) }}">Edit</a>
+                        {% else %}
+                            <a href="{{ path('app_admin_activate', {'id': user.id}) }}">activé le compte</a>
+                            -
+                            <a href="{{ path('app_participant_edit', {'id': user.id}) }}">Edit</a>
+                            -
+                            <a href="{{ path('app_participant_delete', {'id': user.id}) }}">Supprimer le compte</a>
+                        {% endif %}
                     </td>
                 </tr>
             {% else %}
@@ -38,7 +60,6 @@
             {% endfor %}
             </tbody>
         </table>
-
-        <button class="btn"><a href="{{ path('app_participant_new') }}">Créer un nouveau profil</a></button>
+        <a href="{{ path('app_admin_register') }}">Créer un nouveau compte</a>
     </div>
 {% endblock %}
