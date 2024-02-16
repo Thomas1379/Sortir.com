@@ -2,7 +2,7 @@
     <ul>
         {% if app.user %}
             <li><a href="{{ path('app_sortie_index') }}" title="index">Accueil</a></li>
-             <li><a href="{{ path('app_participant_edit', {'id': app.user.id}) }}" title="Mon profil">Mon profil</a></li>
+            <li><a href="{{ path('app_participant_edit', {'id': app.user.id}) }}" title="Mon profil">Mon profil</a></li>
             <li><a href="{{ path('app_logout') }}" title="logout">Se déconnecter</a></li>
 
             {% if is_granted("ROLE_ADMIN") %}

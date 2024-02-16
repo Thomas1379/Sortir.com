@@ -28,18 +28,16 @@ class SortieRepository extends ServiceEntityRepository
     public function allTables()
     {
         $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->addOrderBy('s.nom', 'ASC');
+        $queryBuilder->addOrderBy('s.dateHeureDebut', 'ASC');
         $queryBuilder->join('s.organisateur', 'orga');
         $queryBuilder->join('s.Etat', 'etat');
-        $queryBuilder->LeftJoin('s.Participant', 'part');
+        $queryBuilder->join('s.Participant', 'part');
         $queryBuilder->addSelect('orga');
         $queryBuilder->addSelect('etat');
         $queryBuilder->addSelect('part');
 
         $query = $queryBuilder->getQuery();
-        $query->setMaxResults(20);
-        $results = $query->getResult();
-        return $results;
+        return $query;
     }
 
     public function searchByName($search)
@@ -100,7 +98,6 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if (!empty($search['passe'])) {
-            dump('test2');
             $queryBuilder->andWhere('s.dateHeureDebut < :currentDate');
             $queryBuilder->setParameter('currentDate', $currentDate->format('Y-m-d'));
         } else {
@@ -123,7 +120,6 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder->setParameter('date2', $search['date2']);
 
         if (!empty($search['orga'])) {
-            dump('test1');
             $queryBuilder->andWhere('s.organisateur = :orga');
             $queryBuilder->setParameter('orga', $search['orga']);
         }
@@ -165,7 +161,6 @@ class SortieRepository extends ServiceEntityRepository
 
 
         $query = $queryBuilder->getQuery();
-        $query->setMaxResults(50);
         return $query;
     }
 }

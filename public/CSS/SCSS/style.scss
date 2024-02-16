@@ -4,35 +4,92 @@ $fz2: 1.5rem;
 $fz3: 1.8rem;
 $fz4: 2rem;
 
+$colorGris : #444242;
+$colorOrange : #DA6D29;
+$colorJaune : #FCC955;
+$colorBlanche : #ffffff;
+$colorNoire : #000000;
 
-a {
-  text-decoration: none;
+$policeDeBase: "Calibri", serif;
+
+body {
+  width: 100%;
+  height: 100%;
+  font-family: $policeDeBase;
 }
+
 
 header {
-  width: 100%;
+  display: flex;
   height: 10vh;
-  background-color: darkgrey;
+  background-color: $colorGris;
+  align-items: center;
+
+  .logo {
+    width: 100%;
+    height: 100%;
+    a {
+      img {
+        height: 80%;
+        margin: 10px;
+      }
+    }
+  }
+
+  nav {
+    ul {
+      display: flex;
+      justify-content: flex-end;
+      list-style: none;
+      li {
+        margin-right: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a {
+          color: white;
+          padding: 5px;
+          text-align: center;
+          &:visited {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
 }
+
 footer {
   width: 100%;
   height: 10vh;
-  background-color: darkgrey;
+  background-color: $colorGris;
+  border: black;
 }
+
+
+
+a {
+  text-decoration: none;
+
+}
+
 .container {
   width: 100%;
   min-height: 80vh;
   display: block;
 }
+
 button, a, input[type='checkbox'] {
   cursor: pointer;
 }
-img {
+
+/*img {
   max-width: 100%;
   height: auto;
   display: block;
   margin: 0 auto;
-}
+}*/
 
 .index_Participant {
   display: flex;
@@ -249,7 +306,6 @@ img {
   .btn {
     background-color: #BABABA;
     color: #551A8B;
-    padding: 12px 20px;
     border: none;
     border-radius: 4px;
     font-size: larger;
@@ -262,21 +318,18 @@ img {
   }
   table {
     table-layout: fixed;
-
+    border-collapse: collapse;
     thead {
-      justify-content: center;
-      align-items: center;
       background-color: #333;
       color: #FDFDFD;
       tr {
         display: block;
         position: relative;
         th {
-          width: 100px;
+          width: 250px;
           text-decoration: underline;
           padding: 5px;
           text-align: center;
-          border: 1px black solid;
         }
       }
     }
@@ -284,15 +337,23 @@ img {
       display: block;
       overflow: auto;
       width: 100%;
+      max-height: 400px;
       tr {
         &:nth-child(even) {
           background-color: #DDD;
         }
         td {
           border: 1px black solid;
-          width: 100px;
+          width: 250px;
           padding: 5px;
           text-align: center;
+        }
+      }
+      tr:last-child {
+        td {
+          input {
+            width: 80%;
+          }
         }
       }
     }
@@ -334,6 +395,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100%;
   height: 80vh;
   .login {
@@ -507,17 +569,20 @@ img {
           }
         }
       }
+
     tbody {
       display: block;
       overflow: auto;
       width: 100%;
       max-height: 500px;
+
       tr {
         &:nth-child(even) {
           background-color: #DDD;
         }
-
-.index_campus {
+      }
+    }
+/*.index_campus {
   background-color: #af4b03;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
@@ -569,9 +634,9 @@ img {
   h3 {
     margin-left: 20px;
   }
-}
+}*/
 
-.index_Campus {
+/*.index_Campus {
   body {
     background-color: orange;
     font-family: "Roboto", sans-serif;
@@ -594,7 +659,7 @@ img {
   }
 
   .header .nav {
-    float: right;
+    float: left;
   }
 
   .main {
@@ -631,6 +696,4 @@ img {
 }
       }
     }
-
-
-
+ */

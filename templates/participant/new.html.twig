@@ -6,7 +6,20 @@
     <div class="new_participant">
         <h1>Mon profil</h1>
 
-        {{ include('participant/_form.html.twig') }}
+        {{ form_start(participantForm) }}
+
+
+        {{ form_row(participantForm.prenom) }}
+        {{ form_row(participantForm.nom) }}
+        {{ form_row(participantForm.telephone) }}
+        {{ form_row(participantForm.email) }}
+        {{ form_row(participantForm.plainPassword) }}
+        {{ form_row(participantForm.campus) }}
+        {{ form_row(participantForm.photo) }}
+
+        {{ form_end(participantForm) }}
+        <button class="btn" type="submit" name="submit">Enregistrer</button>
+
 
         <button class="btn" name=submit value="annuler"><a href="{{ path('app_participant_index') }}">Liste des participants</a></button>
     </div>

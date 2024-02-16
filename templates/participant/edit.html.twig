@@ -1,15 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier {{ participant.pseudo }} {% endblock %}
+{% block title %}Profil de {{ participant.pseudo }} {% endblock %}
 
 {% block body %}
-     <h1>Modifier {{ participant.pseudo }} </h1>
+    <div class="edit_participant">
+     <h1>Profil de  {{ participant.pseudo }} </h1>
 
-    {{ form_start(participantForm) }}
-    {{ form_widget(participantForm) }}
+  {{ form_start(participantForm) }}
+    {% if participantForm.photo is not null %}
+        {{ form_row(participantForm.photo) }}
+    {% endif %}
+    {{ form_row(participantForm.pseudo) }}
+    {{ form_row(participantForm.nom) }}
+    {{ form_row(participantForm.prenom) }}
+    {{ form_row(participantForm.email) }}
+    {{ form_row(participantForm.telephone) }}
     <td><button class="btn" type="submit" name="submit">Enregistrer</button></td>
     {{ form_end(participantForm) }}
 
-{#    Ce lien ne doit être accessible que pour l'admin (VQ)
-    <a href="{{ path('app_participant_index') }}">Liste des participants</a>#}
+    <a href="{{ path('app_participant_index') }}">Liste des participants</a>
+    </div>
 {% endblock %}
