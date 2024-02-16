@@ -5,7 +5,6 @@
 {% block body %}
     <div class="index_Sortie">
         <h1>Sortie index</h1>
-        {% dump(app.user) %}
 
         <h2 class="filter_title">Filtre</h2>
         <form class="search" action="{{ path('app_sortie_index') }}" method="get">
@@ -164,6 +163,6 @@
         } else {
             window.location.href = path + "?reason=" + encodeURIComponent("Aucune raison");
         }
-    %}
+    }
 </script>
 {% endblock %}

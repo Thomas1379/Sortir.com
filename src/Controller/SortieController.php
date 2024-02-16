@@ -44,7 +44,6 @@ class SortieController extends AbstractController
             }
         }
 
-        dump($search);
         $user = $this->getUser();
 
         if (empty($search['campus']) || $search['campus'] === 'Choisissez un campus') {

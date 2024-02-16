@@ -19,9 +19,7 @@ class ParticipantController extends AbstractController
     #[Route('/', name: 'app_participant_index', methods: ['GET'])]
     public function index(ParticipantRepository $participantRepository): Response
     {
-        return $this->render('participant/index.html.twig', [
-            'participants' => $participantRepository->findAll(),
-        ]);
+        return $this->redirectToRoute('app_admin_user');
     }
 
     #[Route('/new', name: 'app_participant_new', methods: ['GET', 'POST'])]
