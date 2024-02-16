@@ -23,8 +23,6 @@ class AdminController extends AbstractController
     {
         $users = $participantRepository->findAll();
 
-        dump($users);
-
         return $this->render('participant/index.html.twig', [
             'users' => $users
         ]);

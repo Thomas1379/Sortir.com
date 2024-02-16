@@ -23,24 +23,16 @@ class CampusController extends AbstractController
     {
 //        rechercher vers la base de donnees
         $search = $request->query->all();
-        dump($request->query->all());
-        dump(count($search));
-        dump(empty($search));
 
        /* if(count($search) > 0) {
             $campuses = $campusRepository->searchByCampus($search);
        } else {
-            dump('else');
             $campuses= $campusRepository->findAll ();
         }
 
         return $this->render('campus/index.html.twig', [
             'campus' => $campuses,
         ]);*/
-
-
-
-
 
         $campus = new Campus();
         $campusForm = $this->createForm(CampusType::class, $campus);
