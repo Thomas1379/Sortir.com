@@ -251,6 +251,23 @@ button, a, input[type=checkbox] {
   text-align: center;
 }
 
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.register .btn {
+  text-align: center;
+  background-color: #BABABA;
+  color: #551A8B;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: larger;
+  margin: 0 10px;
+}
+
 .index_Ville {
   display: flex;
   justify-content: center;
